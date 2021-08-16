@@ -18,7 +18,8 @@ import RegisterChooser from "./registerChooser";
 import PlusMinusInput from "./plusMinus";
 import Cards from "./cards"
 import {IMaskInput} from 'react-imask';
-import RequiredFields from './requiredFields';
+import PdfLink from "./pdflink";
+import RequiredFields from "./requiredFields"
 
 
 
@@ -28,6 +29,8 @@ export default class FormLoading extends Component {
 
     this.state = {
       agree: false,
+      pdfready: false,
+      pdfhtml: undefined,
       dadataSearchValue: "",
       step: 1,
       foundData: false,
@@ -65,6 +68,7 @@ export default class FormLoading extends Component {
     this.confirmContract = this.confirmContract.bind(this);
     this.getContract = this.getContract.bind(this);
     this.setCompanyDetails = this.setCompanyDetails.bind(this);
+    this._test_getContract = this._test_getContract.bind(this);
 
     this.components = {
       foo: Segment,
@@ -90,6 +94,8 @@ export default class FormLoading extends Component {
       cardsNum,
       docoptions,
       companyDetails,
+      pdfready,
+      pdfhtml,
     } = this.state;
 
     const contextSate = {
@@ -177,6 +183,11 @@ export default class FormLoading extends Component {
         ? (<SearchAddress setSelected={this.setValue.bind(this)} />) 
         : '';
 
+    // const downloadLink = () => {
+    //   console.log('pdfready',pdfready);
+    //   return pdfready ? <PdfLink html={pdfhtml}/> : '';
+    // }
+
     return (
       <Grid>
         <Grid.Row>
@@ -201,6 +212,22 @@ export default class FormLoading extends Component {
                         header="ШАГ 1"
                         content="Необходимые реквизиты. Введите ИНН компаии или ИП"
                       />
+
+
+                            {/* testing */}
+
+                                                      <Button
+                                                        fluid
+                                                        // loading={processingRequest}
+                                                        color="orange"
+                                                        // disabled={!foundData || innExists}
+                                                        // onClick={this._test_getContract}
+                                                      >
+                                                        Загрузить контракт
+                                                      </Button>
+                                                      <PdfLink />
+                                                      
+                            {/* end testing */}
 
                       <Form.Input
                         action={{
@@ -339,6 +366,7 @@ export default class FormLoading extends Component {
                         />
                         
                         {searchAddressBlock}
+
                         <Form.Select
                           fluid
                           label='Cистема документооборота'
@@ -378,6 +406,8 @@ export default class FormLoading extends Component {
                             }
                         />
                         </Form.Field>     
+
+
 
 
                         <Form.Checkbox
@@ -564,6 +594,220 @@ export default class FormLoading extends Component {
         </>
       );
     }
+  }
+
+  _test_getContract() {
+    // const query = {
+    //   email: 'konovalov.aa@inforkom.ru',
+    //   phone: '+79254433038',
+    //   docno: 'TEST-01/IP',
+    //   docdate: '2021-08-15',
+    //   delivery_address: this.state.address,
+    //   cardsNum: 1,
+    //   cardsList: [],
+    //   org: this.state.dadata,
+    //   details: this.state.companyDetails
+    // }
+
+
+
+    const query = {
+      "email":"konovalov.aa@inforkom.ru",
+      "html":true,
+      "html_fill":true,
+      "phone":"+79254433038",
+      "docno":"TEST-01/IP",
+      "docdate":"2021-08-15",
+      "delivery_address": {
+        "title":"143150, Московская обл, г Руза, деревня Устье, д 75",
+        "region":"Московская",
+        "postcode":"143150",
+        "address":"г Руза, деревня Устье, д 75"
+      },
+      "cardsNum":1,
+      "cardsList":[],
+      "org": {
+        "name":"ООО \"ЛЕНИВКА\"",
+        "name_list": {
+          "full_with_opf":"ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ЛЕНИВКА\"",
+          "short_with_opf":"ООО \"ЛЕНИВКА\"",
+          "latin":null,
+          "full":"ЛЕНИВКА",
+          "short":"ЛЕНИВКА"},
+          "address":"119019, г Москва, р-н Хамовники, ул Ленивка, д 3 стр 3",
+          "address_obj":{
+            "postal_code":"119019",
+            "country":"Россия",
+            "country_iso_code":"RU",
+            "federal_district":"Центральный",
+            "region_fias_id":"0c5b2444-70a0-4932-980c-b4dc0d3f02b5",
+            "region_kladr_id":"7700000000000",
+            "region_iso_code":"RU-MOW",
+            "region_with_type":"г Москва",
+            "region_type":"г",
+            "region_type_full":"город",
+            "region":"Москва",
+            "area_fias_id":null,
+            "area_kladr_id":null,
+            "area_with_type":null,
+            "area_type":null,
+            "area_type_full":null,
+            "area":null,
+            "city_fias_id":"0c5b2444-70a0-4932-980c-b4dc0d3f02b5",
+            "city_kladr_id":"7700000000000",
+            "city_with_type":"г Москва",
+            "city_type":"г",
+            "city_type_full":"город",
+            "city":"Москва",
+            "city_area":"Центральный",
+            "city_district_fias_id":null,
+            "city_district_kladr_id":null,
+            "city_district_with_type":"р-н Хамовники",
+            "city_district_type":"р-н",
+            "city_district_type_full":"район",
+            "city_district":"Хамовники",
+            "settlement_fias_id":null,
+            "settlement_kladr_id":null,
+            "settlement_with_type":null,
+            "settlement_type":null,
+            "settlement_type_full":null,
+            "settlement":null,
+            "street_fias_id":"1b9f709b-9ab7-460d-b5f5-803f71f792c3",
+            "street_kladr_id":"77000000000168200",
+            "street_with_type":"ул Ленивка",
+            "street_type":"ул",
+            "street_type_full":"улица",
+            "street":"Ленивка",
+            "house_fias_id":"f6380d91-1bbc-4e0e-a52d-97a48dbd0ee8",
+            "house_kladr_id":"7700000000016820001",
+            "house_cadnum":null,
+            "house_type":"д",
+            "house_type_full":"дом",
+            "house":"3",
+            "block_type":"стр",
+            "block_type_full":"строение",
+            "block":"3",
+            "entrance":null,
+            "floor":null,
+            "flat_fias_id":null,
+            "flat_cadnum":null,
+            "flat_type":null,
+            "flat_type_full":null,
+            "flat":null,
+            "flat_area":null,
+            "square_meter_price":null,
+            "flat_price":null,
+            "postal_box":null,
+            "fias_id":"f6380d91-1bbc-4e0e-a52d-97a48dbd0ee8",
+            "fias_code":"77000000000000016820001",
+            "fias_level":"8",
+            "fias_actuality_state":"0",
+            "kladr_id":"7700000000016820001",
+            "geoname_id":"524901",
+            "capital_marker":"0",
+            "okato":"45286590000",
+            "oktmo":"45383000",
+            "tax_office":"7704",
+            "tax_office_legal":"7704",
+            "timezone":"UTC+3",
+            "geo_lat":"55.7469843",
+            "geo_lon":"37.6083559",
+            "beltway_hit":"IN_MKAD",
+            "beltway_distance":null,
+            "metro":[
+              {
+              "name":"Кропоткинская",
+              "line":"Сокольническая",
+              "distance":0.3
+              },{
+                "name":"Боровицкая",
+                "line":"Серпуховско-Тимирязевская",
+                "distance":0.4
+              },{
+                "name":"Библиотека им.Ленина",
+                "line":"Сокольническая",
+                "distance":0.6
+              }],
+              "qc_geo":"0",
+              "qc_complete":null,
+              "qc_house":null,
+              "history_values":null,
+              "unparsed_parts":null,
+              "source":"119019, ГОРОД МОСКВА, УЛИЦА ЛЕНИВКА, 3, СТР.3",
+              "qc":"0"
+            },
+            "inn":"7704672065",
+            "kpp":"770401001",
+            "ogrn":"1077763997960",
+            "okpo":null,
+            "okved":"70.1",
+            "management":{
+              "name":"Костомаров Алексей Владимирович",
+              "post":"Генеральный директор",
+              "disqualified":null
+            },
+            "type":"LEGAL"
+          },
+          "details":{
+            "fio":"Костомаров Алексей Владимирович",
+            "ogrn":"1077763997960",
+            "okpo":"254688555",
+            "okved":null,
+            "fioi":"Костомарова Алекся Владимировича",
+            "position":"Директор",
+            "positiona":"Директора",
+            "based":"Устав",
+            "baseda":"Устава",
+            "bank":"АО \"МОСКОМБАНК\"",
+            "bik":"044525476",
+            "ks":"30101810245250000476",
+            "baddress":"г Москва, ул 1-я Фрунзенская, д 5",
+            "rs":"40702851454577711100",
+            "docsystem":"Контур Диадок"
+          }
+      };
+
+    const url = "https://data.inforkom.ru/api/v1/util/contract/document";
+    const options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(query)
+    }
+    fetch(url, options)
+    .then(response => response.json())
+    .then(json=>{
+      this.setState({
+        pdfhtml:json.html
+      })
+      this.setState({
+        pdfready:true
+      })
+      // console.log(json.html)
+      // let url = window.URL.createObjectURL(blob);
+      // let a = document.createElement('a');
+      // a.href = url;
+      // a.download = "contract.docx";
+      // document.body.appendChild(a);
+      // a.click();    
+      // a.remove();
+      // window.URL.revokeObjectURL(url);
+    })       
+    // fetch(url, options)
+    // .then(response => response.blob())
+    // .then(blob=>{
+    //   let url = window.URL.createObjectURL(blob);
+    //   let a = document.createElement('a');
+    //   a.href = url;
+    //   a.download = "contract.docx";
+    //   document.body.appendChild(a);
+    //   a.click();    
+    //   a.remove();
+    //   window.URL.revokeObjectURL(url);
+    // })     
   }
 
 

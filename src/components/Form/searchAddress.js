@@ -103,11 +103,11 @@ const xhr = new XMLHttpRequest();
                 className={error?'error':''}
                 loading={loading}
                 onResultSelect={(e, data) => {
-                      // props.setSelected(e,{
-                      //     name:'address',
-                      //     value: data.result
-                      // });
-                      setAddress(data.result);
+                      props.setSelected(e,{
+                          name:'address',
+                          value: data.result
+                      });
+                      // setAddress(data.result);
 
                       return dispatch({ type: 'UPDATE_SELECTION', selection: data.result.unrestricted_value, selected: data.result })
                   }
