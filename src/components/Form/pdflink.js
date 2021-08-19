@@ -7,28 +7,28 @@ const PdfLink = (props) => {
   <div>      
     <PDFDownloadLink document={
     <ContractPdf
-    contractno={'12-25/GHFGF'}
-    contractdate={'12-12-2021'}
-    company={'ООО "ЛЕНИВЕЦ"'}
-    dira={'Генерального директора'}
-    doca={'Устава'}
-    orginn={'5010020015'}
-    orgkpp={'501001001'}
-    ogrn={'4212421242'}
-    address={'Москва Шаболовка 36'}
-    email={'dedmoroz@yandex.ru'}
-    fio={'Салтыков-Щедрин Георгий Борисович'}
-    fioi={'Салтыкова-Щедрина Георгия Борисовича'}
-    bankrs={'407028107000400050098'}
-    bik={'0445250225'}
-    bank={'ПАО НЕПАОПРОМ'}
-    bankks={'30101810100000225'}
-    phone={'+7 929 900 00 01'}
+    contractno={props.data.contractno}
+    contractdate={props.data.contractdate}
+    company={props.data.company}
+    dira={props.data.dira}
+    doca={props.data.doca}
+    orginn={props.data.orginn}
+    orgkpp={props.data.orgkpp}
+    ogrn={props.data.ogrn}
+    address={props.data.address}
+    email={props.data.email}
+    fio={props.data.fio}
+    fioi={props.data.fioi}
+    bankrs={props.data.bankrs}
+    bik={props.data.bik}
+    bank={props.data.bank}
+    bankks={props.data.bankks}
+    phone={props.data.phone}
     />
     } 
     fileName="contract.pdf">
       {({ blob, url, loading, error }) =>
-        loading ? 'Loading document...' : 'Download now!'
+        loading ? 'Подготовка договора...' : 'Скачать договор'
       }
     </PDFDownloadLink>
   </div>

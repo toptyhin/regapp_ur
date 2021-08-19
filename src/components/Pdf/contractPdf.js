@@ -213,15 +213,15 @@ const ContractPdf = (props) => {
   </>
   );
 
-  const empty4Table = (numrows, last) => {
-    const row = (n) =>{
+  const empty4Table = (numrows) => {
+    const row = (n,last) =>{
       const border = last ? '0.5pt solid grey' : 'none';
       return (
       <>
       <Text style={[styles.cell4,{width:'10%', borderBottom: border }]}>{n+1}</Text>
       <Text style={[styles.cell4,{borderBottom: border}]}></Text>
       <Text style={[styles.cell4,{borderBottom: border}]}></Text>
-      <Text style={[styles.cell4,{borderBottom: border}]}></Text>
+      <Text style={[styles.cell4r,{borderBottom: border}]}></Text>
       </>
     )};
     let arr = [];
@@ -586,29 +586,32 @@ const ContractPdf = (props) => {
           <Text style={styles.p}>Далее (начиная со следующего дня после подписания настоящего Дополнительного соглашения) конкретное значение размера скидки устанавливается Агентом в одностороннем безакцептном порядке в пределах значений указанных выше и отражается в Интернет-кабинете Принципала. Принципал выражает согласие получать топливо по ценам, с учетом скидок, указанных в Интернет-кабинете Принципала, в соответствии с настоящим пунктом. </Text>
 
           {/* table */}
-          <View style={[styles.table,{marginTop:10,}]}>
+          <View style={[styles.table,{marginTop:10,marginBottom:10}]}>
             <View style={{width:'50%',borderTop:bs,borderLeft:bs}}></View>
-            <View style={{width:'50%',borderTop:bs,borderLeft:bs,borderRight:bs,display:'flex',flexDirection:'column'}}>
+            <View style={{width:'50%',borderTop:bs,borderLeft:bs,borderRight:bs,display:'flex',flexDirection:'column',fontSize:7}}>
                 <Text style={{display:'block',width:'100%',textAlign:'center'}}>Объем потребления в месяц (литры)</Text>
                 <Text style={{display:'block',borderTop:bs, width:'100%',textAlign:'center'}}>Размер скидки, рубли</Text>
             </View>
 
             <View style={{width:'50%',borderTop:bs, borderLeft:bs, display:'flex',flexDirection:'row'}}>
-                <Text style={{display:'block',width:'25%',textAlign:'center',fontSize:6}}>Регион (место расположения АЗС)</Text>
-                <Text style={{display:'block',borderLeft:bs,borderRight:bs, width:'25%',textAlign:'center',fontSize:6}}>Вид нефтепродукта</Text>
-                <Text style={{display:'block',width:'50%',textAlign:'center',fontSize:6}}>Сеть АЗС</Text>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center', width:'25%',fontSize:6}}><Text style={{textAlign:'center'}}>Регион (место расположения АЗС)</Text></View>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center', borderLeft:bs,borderRight:bs, width:'25%',fontSize:6}}><Text style={{textAlign:'center'}}>Вид 
+                нефтепродукта</Text></View>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center',width:'50%',fontSize:6}}><Text style={{textAlign:'center'}}>Сеть АЗС</Text></View>
             </View>
             <View style={{width:'50%',borderLeft:bs,borderTop:bs,borderRight:bs, display:'flex',flexDirection:'row',fontSize:6}}>
-                <Text style={{display:'block',width:'25%',textAlign:'center'}}>0-5000</Text>
-                <Text style={{display:'block',width:'25%',textAlign:'center'}}>5001-10000</Text>
-                <Text style={{display:'block',width:'25%',textAlign:'center'}}>10001-20000</Text>
-                <Text style={{display:'block',width:'25%',textAlign:'center'}}>Более 20000</Text>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center',width:'25%'}}><Text style={{textAlign:'center'}}>0-5000</Text></View>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center',width:'25%',borderLeft:bs}}><Text style={{textAlign:'center'}}>5001-10000</Text></View>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center',width:'25%',borderLeft:bs}}><Text style={{textAlign:'center'}}>10001-20000</Text></View>
+                <View style={{display:'flex',justifyContent:'center', alignContent:'center',width:'25%',borderLeft:bs}}><Text style={{textAlign:'center'}}>Более 20000</Text></View>
             </View>
 
 
             <View style={{width:'50%',borderTop:bs, borderLeft:bs, borderBottom:bs, display:'flex',flexDirection:'row'}}>
                 <View style={{display:'flex',width:'25%',justifyContent:'center', alignContent:'center'}}>
-                    <Text style={{textAlign:'center'}}>АЗС, расположенные на территории РФ</Text>
+                    <Text style={{textAlign:'center',fontSize:7}}>АЗС, располо-
+                    женные на 
+                    территории РФ</Text>
                 </View>
                 
                 {/* <View style={{display:'flex',width:'75%',justifyContent:'center', alignContent:'center'}}>
@@ -620,66 +623,66 @@ const ContractPdf = (props) => {
 
 
                 <View style={{display:'flex', flexDirection:'column',borderLeft:bs, width:'25%'}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Дизельное топливо</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Бензин</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Газ</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Дизельное топливо</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Бензин</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Газ</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Дизельное топливо</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Бензин</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>Газ</Text>                        
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '20',fontSize:7}}>Дизельное топливо</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '10',fontSize:7}}>Бензин</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '10',fontSize:7}}>Газ</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '20',fontSize:7}}>Дизельное топливо</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '10',fontSize:7}}>Бензин</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '10',fontSize:7}}>Газ</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '20',fontSize:7}}>Дизельное топливо</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '10',fontSize:7}}>Бензин</Text>
+                        <Text style={{display:'block', textAlign:'center',width:'100%',height: '10',fontSize:7}}>Газ</Text>                        
                 </View>
                 <View style={{display:'flex', flexDirection:'column',borderLeft:bs, width:'50%',fontSize:6}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>АЗС, входящие в сеть ИНФОРКОМ, кроме АЗС «Газпром нефть» и АЗС, указанных на сайте Агента по адресу: http://inforkom.ru/map-stations/isklyuchennye-2</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>АЗС, указанные на сайте Агента по адресу: http://inforkom.ru/map-stations/isklyuchennye-2</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>АЗС «Газпром нефть»</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '40'}}>АЗС, входящие в сеть ИНФОРКОМ, кроме АЗС «Газпром нефть» и АЗС, указанных на сайте Агента по адресу: http://inforkom.ru/map-stations/isklyuchennye-2</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height: '40'}}>АЗС, указанные на сайте Агента по адресу: http://inforkom.ru/map-stations/isklyuchennye-2</Text>
+                        <Text style={{display:'block', textAlign:'center',width:'100%',height: '40'}}>АЗС «Газпром нефть»</Text>
                 </View>
             </View>
-            <View style={{width:'50%',borderLeft:bs,borderTop:bs,borderRight:bs, display:'flex',flexDirection:'row'}}>
+            <View style={{width:'50%',borderLeft:bs,borderTop:bs,borderRight:bs, display:'flex',flexDirection:'row',fontSize:7}}>
                 <View style={{display:'flex',flexDirection:'column',width:'25%'}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.30</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.30</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.30</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.30</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.00</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.40</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.40</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
                 </View>
-                <View style={{display:'flex',flexDirection:'column',width:'25%'}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.50</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.50</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
+                <View style={{display:'flex',flexDirection:'column',borderLeft:bs, width:'25%'}}>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.50</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.50</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.00</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.40</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.40</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
                 </View>
-                <View style={{display:'flex',flexDirection:'column',width:'25%'}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.60</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.60</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.20</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
+                <View style={{display:'flex',flexDirection:'column',borderLeft:bs,width:'25%'}}>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs,width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.60</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.60</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.20</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.00</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.40</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.40</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
                 </View>
-                <View style={{display:'flex',flexDirection:'column',width:'25%'}}>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>1.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>1.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.45</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.40</Text>
-                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%'}}>0.00</Text>
+                <View style={{display:'flex',flexDirection:'column',borderLeft:bs,width:'25%'}}>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>1.00</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>1.00</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.45</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.00</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
+                        <View style={{display:'flex',justifyContent:'center', alignContent:'center',borderBottom:bs, width:'100%',height:'20'}}><Text style={{textAlign:'center'}}>0.40</Text></View>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.40</Text>
+                        <Text style={{display:'block', borderBottom:bs, textAlign:'center',width:'100%',height:'10'}}>0.00</Text>
                 </View>                                
             </View>   
 
