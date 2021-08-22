@@ -147,7 +147,7 @@ export default class FormLoading extends Component {
                     <Segment raised>
                       <Message
                         header="ШАГ 1"
-                        content="Необходимые реквизиты. Введите ИНН компаии или ИП"
+                        content="Необходимые реквизиты. Введите ИНН компании или ИП"
                       />
                       <Form.Input
                         action={{
@@ -179,7 +179,7 @@ export default class FormLoading extends Component {
                       >
                           <Message
                           negative
-                          content="У нас уже есть договор с этим юр.лицом"
+                          content="У нас уже есть договор"
                           >
 
                           </Message>
@@ -336,8 +336,8 @@ export default class FormLoading extends Component {
                             name = 'email'
                             placeholder = 'name@mail.ru'
                             disabled = {false}
-                            confirmationError = {false}
-                            codePending = {false}
+                            passValue = {this.setValue.bind(this)}
+
                           />
                         </Transition>                        
                         

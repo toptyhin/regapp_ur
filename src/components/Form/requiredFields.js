@@ -168,13 +168,13 @@ const handleBlur = () => {
           <RFSegment 
             label={'ИНН'}
             placeholder={'ИНН'}
-            value={props.dadata.inn}
+            value={(props.dadata.inn ? props.dadata.inn : '')}
             change = {(val)=> setFieldData('inn',val)}
           />             
           <RFSegment 
             label={'КПП'}
             placeholder={'КПП'}
-            value={props.dadata.kpp}
+            value={(props.dadata.kpp ? props.dadata.kpp : '')}
             change = {(val)=> setFieldData('kpp',val)}
           />             
         </Segment.Group>
@@ -182,19 +182,19 @@ const handleBlur = () => {
           <RFSegment 
             label={'ОГРН'}
             placeholder={'ОГРН'}
-            value={props.dadata.ogrn}
+            value={(props.dadata.ogrn ? props.dadata.ogrn : '')}
             change = {(val)=> setFieldData('ogrn',val)}
           />                       
           <RFSegment 
             label={'ОКПО'}
             placeholder={'ОКПО'}
-            value={props.dadata.okpo}
+            value={(props.dadata.okpo ? props.dadata.okpo : '')}
             change = {(val)=> setFieldData('okpo',val)}
           />         
           <RFSegment 
             label={'ОКВЭД'}
             placeholder={'ОКВЭД'}
-            value={props.dadata.okved}
+            value={(props.dadata.okved ? props.dadata.okved :'')}
             change = {(val)=> setFieldData('okved',val)}
           />                                 
         </Segment.Group>
