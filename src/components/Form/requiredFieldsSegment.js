@@ -38,26 +38,26 @@ const RFSegment = (props) => {
         passBlurEvent && passBlurEvent();
     }
 
-    const renderError = () => {
-        if (error) {
-        return (
-            <Message
-            color='orange'
-            header='Ошибка'
-            content={error_message}
-        />          
-        )
-        } else {
-            return null;
-        }
-    };
+    // const renderError = () => {
+    //     if (error) {
+    //     return (
+    //         <Message
+    //         color='orange'
+    //         header='Ошибка'
+    //         content={error_message}
+    //     />          
+    //     )
+    //     } else {
+    //         return null;
+    //     }
+    // };
 
 
     return (
         <Segment color={getColor()}>
         <Form.Field error={error}>
           <label>{label}</label>
-          {renderError()}
+          {/* {renderError()} */}
           <input 
           placeholder={placeholder}
           value={val}

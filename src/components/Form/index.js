@@ -480,7 +480,17 @@ export default class FormLoading extends Component {
       companyDetails.address = rec.data ? rec.data.address.unrestricted_value : rec.address;
       if (rec.data && rec.data.management) {
       companyDetails.fio = rec.data.management.name ? rec.data.management.name : '';
+      this.setCompanyDetails('fio',companyDetails.fio);
       }
+
+      this.setCompanyDetails('name',companyDetails.name);
+      this.setCompanyDetails('inn',companyDetails.inn);
+      this.setCompanyDetails('kpp',companyDetails.kpp);
+      this.setCompanyDetails('ogrn',companyDetails.ogrn);
+      this.setCompanyDetails('okpo',companyDetails.okpo);
+      this.setCompanyDetails('okved',companyDetails.okved);
+      this.setCompanyDetails('addrerss',companyDetails.address);
+
       this.setState({
         foundData: found,
         dadata: {
@@ -673,7 +683,7 @@ export default class FormLoading extends Component {
   сompanyDetailsComplete = () => {
     const required = ['fio','fioi','position', 'positiona', 'based', 'baseda', 'ogrn','bank','bik','ks','rs','baddress'];
     const {companyDetails} = this.state;    
-
+console.log(companyDetails);
     for (let name of required) {
       if (!companyDetails[name] || companyDetails[name] === '') {
         return false;

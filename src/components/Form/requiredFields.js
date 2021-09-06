@@ -109,9 +109,20 @@ const RequiredFields = (props) => {
 //   setOpenPosa(true);
 // }
 
+const nameString = () => (
+  <>
+  <b>{props.dadata.name}</b>
+  {props.dadata.inn ? ' ИНН: ' + props.dadata.inn : ''}
+  {props.dadata.kpp ? ' КПП: '+props.dadata.kpp : ''}
+  {props.dadata.ogrn ? ' ОГРН: '+props.dadata.ogrn : ''}
+  </>
+);
+
+// setFieldData('fio',getManagement());
+
   return (
       <Segment.Group>
-      <Segment>{props.dadata.name}</Segment>
+      <Segment>{nameString()}</Segment>
       <Segment.Group>
         <Segment.Group horizontal>
         <RFSegment 
@@ -158,7 +169,7 @@ const RequiredFields = (props) => {
           change = {(val)=> setFieldData('baseda',val)}
         />                
         </Segment.Group>
-        <Segment.Group horizontal>
+        {/* <Segment.Group horizontal>
           <RFSegment 
             label={'ИНН'}
             placeholder={'ИНН'}
@@ -171,8 +182,8 @@ const RequiredFields = (props) => {
             value={(props.dadata.kpp ? props.dadata.kpp : '')}
             change = {(val)=> setFieldData('kpp',val)}
           />             
-        </Segment.Group>
-        <Segment.Group horizontal>
+        </Segment.Group> */}
+        {/* <Segment.Group horizontal>
           <RFSegment 
             label={'ОГРН'}
             placeholder={'ОГРН'}
@@ -191,7 +202,7 @@ const RequiredFields = (props) => {
             value={(props.dadata.okved ? props.dadata.okved :'')}
             change = {(val)=> setFieldData('okved',val)}
           />                                 
-        </Segment.Group>
+        </Segment.Group> */}
         <Segment>Банковские реквизиты</Segment>
         <Segment>
           <Form.Field>
