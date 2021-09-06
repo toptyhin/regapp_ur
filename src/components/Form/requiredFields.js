@@ -10,8 +10,6 @@ import {
 
 const RequiredFields = (props) => {
 
-  let fieldsData = {};
-
   const [bankName, setBankName] = useState(false);
   const [bankDetails, setBankDetails] = useState({
     address:'',
@@ -21,11 +19,7 @@ const RequiredFields = (props) => {
     corr:'',
     account:''
   });
-  // not used
-  const [doca, setDoca] = useState('');
-  const [openPosa, setOpenPosa] = useState(false);
-  const [posa, setPosa] = useState('');
-  //*** */
+
 
   const getManagement = () => props.dadata.management && props.dadata.management.name ? props.dadata.management.name : '';
   
@@ -68,52 +62,52 @@ const RequiredFields = (props) => {
     }
   }
 
-  const tryRP = (typ, val) => {
-    //not used
-    const position = [
-      {from:'директор',to:'директора'},
-      {from:'Директор',to:'Директора'},
-      {from:'генеральный',to:'генерального'},
-      {from:'Генеральный',to:'Генерального'},
-      {from:'управляющий',to:'управляющего'},
-      {from:'Управляющий',to:'Управляющего'},
-      {from:'заместитель',to:'заместителя'},
-      {from:'Заместитель',to:'Заместителя'},
-      {from:'коммерческий',to:'коммерческого'},
-      {from:'Коммерческий',to:'Коммерческого'},
-      {from:'финансовый',to:'финансового'},
-      {from:'Финансовый',to:'Финансового'},
-    ];
-    const doc = [
-      {from:'устав',to:'устава'},
-      {from:'Устав',to:'Устава'},
-      {from:'приказ',to:'приказа'},
-      {from:'Приказ',to:'Приказа'},
-      {from:'доверенность',to:'доверенности'},
-      {from:'Доверенность',to:'Доверенности'},
-    ]    
-    const src = typ === 'doc' ? doc : position;
-    let str = '';
-    val.split(' ').map((s)=>{
-      src.map((m)=>{
-        if (m.from === s.trim()) {
-          s = m.to;
-        }
-      })
-      str += ' '+s;
-    })
-    if (typ === 'doc') {
-      setDoca(str);
-    } else {
-      setPosa(str)
-    }
+//   const tryRP = (typ, val) => {
+//     //not used
+//     const position = [
+//       {from:'директор',to:'директора'},
+//       {from:'Директор',to:'Директора'},
+//       {from:'генеральный',to:'генерального'},
+//       {from:'Генеральный',to:'Генерального'},
+//       {from:'управляющий',to:'управляющего'},
+//       {from:'Управляющий',to:'Управляющего'},
+//       {from:'заместитель',to:'заместителя'},
+//       {from:'Заместитель',to:'Заместителя'},
+//       {from:'коммерческий',to:'коммерческого'},
+//       {from:'Коммерческий',to:'Коммерческого'},
+//       {from:'финансовый',to:'финансового'},
+//       {from:'Финансовый',to:'Финансового'},
+//     ];
+//     const doc = [
+//       {from:'устав',to:'устава'},
+//       {from:'Устав',to:'Устава'},
+//       {from:'приказ',to:'приказа'},
+//       {from:'Приказ',to:'Приказа'},
+//       {from:'доверенность',to:'доверенности'},
+//       {from:'Доверенность',to:'Доверенности'},
+//     ]    
+//     const src = typ === 'doc' ? doc : position;
+//     let str = '';
+//     val.split(' ').map((s)=>{
+//       src.map((m)=>{
+//         if (m.from === s.trim()) {
+//           s = m.to;
+//         }
+//       })
+//       str += ' '+s;
+//     })
+//     if (typ === 'doc') {
+//       setDoca(str);
+//     } else {
+//       setPosa(str)
+//     }
     
-    return val;
-  }
+//     return val;
+//   }
 
-const handleBlur = () => {
-  setOpenPosa(true);
-}
+// const handleBlur = () => {
+//   setOpenPosa(true);
+// }
 
   return (
       <Segment.Group>

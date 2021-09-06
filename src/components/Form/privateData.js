@@ -38,7 +38,7 @@ const PrivateData = (props) => {
               <List.Header>Личный кабинет</List.Header>
             </List.Item>
             <List.Item  key={'li_lk_address'}>
-              <List.Description>Адрес - <a href={props.lkData.link}>{props.lkData.link}</a></List.Description>
+              <List.Description>Адрес - <a href={props.lkData.link}>{props.lkData.link}</a> Личный кабинет будет сформирован в течение 15-20 минут.</List.Description>
             </List.Item>       
             <List.Item  key={'li_lk_login'}>
               <List.Description>Логин - {props.lkData.login}</List.Description>

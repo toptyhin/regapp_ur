@@ -29,10 +29,10 @@ export default class RegisterChooser extends Component {
                 const emailRegex = /^([A-Za-z0-9_\-.+])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
                 return !emailRegex.test(d.value);
         };
-        const tcheck = ()=>{
-            const elvnDgs = /^\d{11}$/;
-            return !elvnDgs.test(d.value);
-        };  
+        // const tcheck = ()=>{
+        //     const elvnDgs = /^\d{11}$/;
+        //     return !elvnDgs.test(d.value);
+        // };  
         
         let error = false;
         if (this.props.name === 'email') {
@@ -129,7 +129,6 @@ export default class RegisterChooser extends Component {
     render() {
         
         const {
-            error,
             email,
             codePending,
             confirmationError,

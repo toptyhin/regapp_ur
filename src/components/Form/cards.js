@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react";
-import React, {Component,useState} from "react";
+import React, {useState} from "react";
 import {Button, Checkbox, Form, Icon, Segment, Transition, List} from "semantic-ui-react";
 import {IMaskInput} from 'react-imask';
 

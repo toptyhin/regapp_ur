@@ -21,7 +21,6 @@ import RequiredFields from "./requiredFields"
 import PrivateData from "./privateData";
 
 
-
 export default class FormLoading extends Component {
   constructor(props) {
     super(props);
@@ -73,14 +72,10 @@ export default class FormLoading extends Component {
 
     const {
       agree,
-      pendingConfirmation,
-      contactConfirmed,
       step,
       foundData,
       datalist,
-      email,
       phone,
-      validInput,
       innExists,
       processingRequest,
       cardsNum,
@@ -199,6 +194,8 @@ export default class FormLoading extends Component {
                             disabled={!foundData || innExists}
                             onClick={() => {
                               this.setState({processingRequest:true})
+                              const step1event = new Event('step1');
+                              window.dispatchEvent(step1event);
                               this.isNewContract()
                                 .then(c_resp => c_resp.json())
                                 .then(cr=>{
@@ -247,7 +244,11 @@ export default class FormLoading extends Component {
                         color="orange"
                         disabled={!this.сompanyDetailsComplete()}
                         // onClick={() => this.checkMail()}
-                        onClick={() => this.setStep(3)}
+                        onClick={() => {
+                          const step2event = new Event('step2');
+                          window.dispatchEvent(step2event);
+                          this.setStep(3)
+                        }}
                       >
                         OK
                       </Button>
@@ -469,10 +470,7 @@ export default class FormLoading extends Component {
         dadata: ddata,
       });
     } else {
-      const {
-        companyDetails,
-        other
-      } = this.state; 
+      const {companyDetails} = this.state; 
       companyDetails.name = rec.value ? rec.value.replace('\\','') : rec.name.replace('\\',''); 
       companyDetails.inn = rec.data ? rec.data.inn : rec.inn;
       companyDetails.kpp = rec.data ? rec.data.kpp : rec.kpp;
@@ -592,6 +590,7 @@ export default class FormLoading extends Component {
   }
 
   confirmContract() {
+   
     const query = {
       email: this.state.email ? this.state.email : '',
       phone: this.state.phone ? this.state.phone : '',
@@ -628,6 +627,8 @@ export default class FormLoading extends Component {
             cid: obj.cid
           }
         })
+        const step3event = new Event('step3');
+        window.dispatchEvent(step3event);        
         this.setStep(4)
       }
     })
@@ -662,10 +663,7 @@ export default class FormLoading extends Component {
   }
 
   setCompanyDetails = (key,val) => {
-    const {
-      companyDetails,
-      other
-    } = this.state;
+    const {companyDetails} = this.state;
     companyDetails[key] = val;
     this.setState({
       companyDetails: companyDetails
@@ -674,10 +672,7 @@ export default class FormLoading extends Component {
 
   сompanyDetailsComplete = () => {
     const required = ['fio','fioi','position', 'positiona', 'based', 'baseda', 'ogrn','bank','bik','ks','rs','baddress'];
-    const {
-      companyDetails,
-      other
-    } = this.state;    
+    const {companyDetails} = this.state;    
 
     for (let name of required) {
       if (!companyDetails[name] || companyDetails[name] === '') {

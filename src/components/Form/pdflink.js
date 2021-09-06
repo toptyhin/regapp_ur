@@ -1,5 +1,5 @@
 import React from 'react'
-import { PDFDownloadLink, Document, Page, Text, StyleSheet, Font } from '@react-pdf/renderer';
+import { PDFDownloadLink} from '@react-pdf/renderer';
 import ContractPdf from '../Pdf/contractPdf';
 
 const PdfLink = (props) => {
