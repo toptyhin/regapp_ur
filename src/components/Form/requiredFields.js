@@ -127,13 +127,13 @@ const nameString = () => (
         <Segment.Group horizontal>
         <RFSegment 
           label={'Подписант ФИО'}
-          placeholder={'ФИО'}
+          placeholder={'Иванов Иван Иванович'}
           value = {getManagement()}
           change = {(val)=> setFieldData('fio',val)}
         />
         <RFSegment 
           label={'Подписант ФИО в родительном падеже'}
-          placeholder={'ФИО р.п.'}
+          placeholder={'Иванова Ивана Ивановича'}
           value={''}
           change = {(val)=> setFieldData('fioi',val)}
         />
@@ -141,7 +141,7 @@ const nameString = () => (
         <Segment.Group horizontal>
         <RFSegment 
           label={'Должность'}
-          placeholder={'Должность'}
+          placeholder={'Директор'}
           value={''}
           change = {(val)=> {
             // setPosa(val);
@@ -150,7 +150,7 @@ const nameString = () => (
         />
         <RFSegment 
           label={'Должность в р.п.'}
-          placeholder={'Должность в р.п.'}
+          placeholder={'Директора'}
           value={''}
           change = {(val)=> setFieldData('positiona',val)}
         />

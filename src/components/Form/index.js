@@ -203,7 +203,6 @@ export default class FormLoading extends Component {
                                   switch (cr.status) {
                                     case 'OK':
                                       this.setState({innExists:false})
-                                      console.log(this.state)
                                       this.setStep(2);
                                       break; 
                                       case 'WARNING':
@@ -449,7 +448,7 @@ export default class FormLoading extends Component {
   setFoundCompany(rec, found) {
     if (Array.isArray(rec)) {
       let ddata = [];
-      let main = rec.filter((r) => r.data.branch_type === "MAIN");
+      const main = rec.filter((r) => r.data.branch_type === "MAIN");
       rec.map((r) => {
         ddata.push({
           name: r.value,
@@ -478,20 +477,13 @@ export default class FormLoading extends Component {
       companyDetails.okpo = rec.data ? rec.data.okpo : rec.okpo;
       companyDetails.okved = rec.data ? rec.data.okved : rec.okved;
       companyDetails.address = rec.data ? rec.data.address.unrestricted_value : rec.address;
-      if (rec.data && rec.data.management) {
-      companyDetails.fio = rec.data.management.name ? rec.data.management.name : '';
-      this.setCompanyDetails('fio',companyDetails.fio);
+      
+      if (rec.management && rec.management.name) {
+        companyDetails.fio = rec.management.name;
       }
 
-      this.setCompanyDetails('name',companyDetails.name);
-      this.setCompanyDetails('inn',companyDetails.inn);
-      this.setCompanyDetails('kpp',companyDetails.kpp);
-      this.setCompanyDetails('ogrn',companyDetails.ogrn);
-      this.setCompanyDetails('okpo',companyDetails.okpo);
-      this.setCompanyDetails('okved',companyDetails.okved);
-      this.setCompanyDetails('addrerss',companyDetails.address);
-
       this.setState({
+        companyDetails : companyDetails,
         foundData: found,
         dadata: {
           name: rec["value"] ? rec["value"] : rec.name,
@@ -683,7 +675,7 @@ export default class FormLoading extends Component {
   сompanyDetailsComplete = () => {
     const required = ['fio','fioi','position', 'positiona', 'based', 'baseda', 'ogrn','bank','bik','ks','rs','baddress'];
     const {companyDetails} = this.state;    
-console.log(companyDetails);
+
     for (let name of required) {
       if (!companyDetails[name] || companyDetails[name] === '') {
         return false;
