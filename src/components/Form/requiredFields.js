@@ -61,7 +61,8 @@ const RequiredFields = (props) => {
       return '';
     }
   }
-
+  
+  
 //   const tryRP = (typ, val) => {
 //     //not used
 //     const position = [
@@ -129,6 +130,7 @@ const nameString = () => (
           label={'Подписант ФИО'}
           placeholder={'Иванов Иван Иванович'}
           value = {getManagement()}
+          // value = {manager}
           change = {(val)=> setFieldData('fio',val)}
         />
         <RFSegment 

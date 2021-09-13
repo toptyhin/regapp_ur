@@ -300,6 +300,7 @@ export default class FormLoading extends Component {
                         >
                            <Form.Input 
                             fluid 
+                            required
                             label='Другая:' 
                             placeholder='Введите название'
                             value={companyDetails.docsystem ? companyDetails.docsystem : ''} 
@@ -464,6 +465,7 @@ export default class FormLoading extends Component {
           type: r.data.type,
         });
       });
+
       this.setState({
         datalist: true,
         dadata: ddata,
@@ -478,9 +480,13 @@ export default class FormLoading extends Component {
       companyDetails.okved = rec.data ? rec.data.okved : rec.okved;
       companyDetails.address = rec.data ? rec.data.address.unrestricted_value : rec.address;
       
-      if (rec.management && rec.management.name) {
-        companyDetails.fio = rec.management.name;
-      }
+      if (rec.data && rec.data.management &&  rec.data.management.name) {
+        companyDetails.fio = rec.data.management.name;
+      } else {
+        if (rec.management && rec.management.name) {
+          companyDetails.fio = rec.management.name;
+        }
+      } 
 
       this.setState({
         companyDetails : companyDetails,
