@@ -7,6 +7,8 @@ import {
 
   import ReactDadataBox from 'react-dadata-box';
   import RFSegment from './requiredFieldsSegment';
+  import MaskedAccountNum from "./maskedAccountNum";
+  
 
 const RequiredFields = (props) => {
 
@@ -256,14 +258,23 @@ const nameString = () => (
                               </Form.Field>                    
                             </Segment>
                           </Segment.Group>
-                          <RFSegment 
+
+                          {/* <RFSegment 
                             label={'Расчетный счет'}
                             placeholder={'Укажите номер расчетного счета'}
                             error_message={'В номере расчетного счета должно быть 20 цифр'}
                             value={''}
                             change = {(val)=> setFieldData('rs',validRS(val))}
                             validator = {(e)=>!!e.match(/^\d{20}$/)}
-                          />   
+                          />  */}
+
+                          <MaskedAccountNum
+                          label={'Расчетный счет'}
+                          placeholder={'Укажите номер расчетного счета'}
+                          value={''}
+                          change = {(val)=> setFieldData('rs',validRS(val))}                          
+                          ></MaskedAccountNum>
+
                         </Segment.Group>
                       </Segment>
                     </Transition>
