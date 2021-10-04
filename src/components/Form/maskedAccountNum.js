@@ -4,39 +4,48 @@ import {IMaskInput} from 'react-imask';
 
 
   const MaskedAccountNum = (props) => {
-    const {label, placeholder, error_message = 'Поле незаполнено'} = props
+    const {label, change, componentComplete, placeholder, error_message = 'Поле незаполнено'} = props
     const [active, setActive] = useState(false);
     const [error, setError] = useState(false);
     const [complete, setComplete] = useState(false);
     const [val, setVal] = useState('');
     const getColor = () => {
+        if (active && complete) {
+            return 'green';
+        }
         return active ? 'blue' : complete ? 'green' : error ? 'red' : 'grey'
     }
     const setStates = () => {
-        console.log(val)
-        if (val.length === 20) {
-            setComplete(true)
-            setError(false)
-        } else {
-            setComplete(false)
-            setError(true);
-        }
+        setComplete(true);
+        setError(false);
+        change(val);
+        componentComplete(true);
     }
-    const handleChange = (e) => {
-        // change(e.target.value);
-        setVal(e.target.value);
+    // const handleChange = (e) => {
+    //     // change(e.target.value);
+    //     setVal(e.target.value);
+    // }
+
+    const handleChange2 = (e) => {
+        setComplete(false);
+        setActive(true);
+        setVal(e);
+    }    
+
+    const handleBlur = () => {
+        setActive(false);
+        !complete && setError(true);
     }
     
-    const validate = (e) => {
-        setActive(false);
-            if (!e.target.value) {
-                setError(true);
-            } else {
-                setError(false);
-                setComplete(true);
-            }
-        // passBlurEvent && passBlurEvent();
-    }
+    // const validate = (e) => {
+    //     setActive(false);
+    //         if (!e.target.value) {
+    //             setError(true);
+    //         } else {
+    //             setError(false);
+    //             setComplete(true);
+    //         }
+    // }
 
     return (
         <Segment color={getColor()}>
@@ -47,20 +56,12 @@ import {IMaskInput} from 'react-imask';
             mask={"000  00  000  0  0000  0000000"}
             unmask={true}
             placeholder={placeholder}
-            onFocus={setActive}
-            onBlur={setStates}
-            onAccept={setVal}
+            onBlur={handleBlur}
+            onAccept={handleChange2}
             onComplete={
               (unmskedValue)=>{
                 setStates()
-                // setComplete(true);
-                // setComplete(true);
-                // setError(false);
-                // setVal(unmskedValue);
-                console.log('unmasked', unmskedValue)
-                // this.setState({
-                //   phone: unmskedValue
-                // })
+                // console.log('unmasked', unmskedValue)
               }
             }
         />

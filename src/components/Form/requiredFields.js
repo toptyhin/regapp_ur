@@ -22,6 +22,7 @@ const RequiredFields = (props) => {
     account:''
   });
 
+  const [lastFieldComplete, setLastFieldComplete] = useState(false);
 
   const getManagement = () => props.dadata.management && props.dadata.management.name ? props.dadata.management.name : '';
   
@@ -51,8 +52,22 @@ const RequiredFields = (props) => {
   // }
 
 
-  // const setFieldData = (key,val) => fieldsData[key] = val;
+  const [internalFieldsData, setInternalFieldsData] = useState(
+    {
+      'fio': getManagement(),
+      'fioi': '',
+      'position': '',
+      'positiona': '',
+      'based': '',
+      'baseda': '',
+    }
+  );
+
+
   const setFieldData = (key,val) => {
+    const _intObj = internalFieldsData;
+    _intObj[key] = val;
+    setInternalFieldsData(_intObj);
     props.passData(key,val)
   };
   
@@ -64,54 +79,13 @@ const RequiredFields = (props) => {
     }
   }
   
+  console.log('internalFieldsData', internalFieldsData);
+
+  const errorField = (name) => {
+    console.log(name, lastFieldComplete && internalFieldsData[name] === '');
+    return lastFieldComplete && internalFieldsData[name] === ''
+  };
   
-//   const tryRP = (typ, val) => {
-//     //not used
-//     const position = [
-//       {from:'директор',to:'директора'},
-//       {from:'Директор',to:'Директора'},
-//       {from:'генеральный',to:'генерального'},
-//       {from:'Генеральный',to:'Генерального'},
-//       {from:'управляющий',to:'управляющего'},
-//       {from:'Управляющий',to:'Управляющего'},
-//       {from:'заместитель',to:'заместителя'},
-//       {from:'Заместитель',to:'Заместителя'},
-//       {from:'коммерческий',to:'коммерческого'},
-//       {from:'Коммерческий',to:'Коммерческого'},
-//       {from:'финансовый',to:'финансового'},
-//       {from:'Финансовый',to:'Финансового'},
-//     ];
-//     const doc = [
-//       {from:'устав',to:'устава'},
-//       {from:'Устав',to:'Устава'},
-//       {from:'приказ',to:'приказа'},
-//       {from:'Приказ',to:'Приказа'},
-//       {from:'доверенность',to:'доверенности'},
-//       {from:'Доверенность',to:'Доверенности'},
-//     ]    
-//     const src = typ === 'doc' ? doc : position;
-//     let str = '';
-//     val.split(' ').map((s)=>{
-//       src.map((m)=>{
-//         if (m.from === s.trim()) {
-//           s = m.to;
-//         }
-//       })
-//       str += ' '+s;
-//     })
-//     if (typ === 'doc') {
-//       setDoca(str);
-//     } else {
-//       setPosa(str)
-//     }
-    
-//     return val;
-//   }
-
-// const handleBlur = () => {
-//   setOpenPosa(true);
-// }
-
 const nameString = () => (
   <>
   <b>{props.dadata.name}</b>
@@ -123,6 +97,7 @@ const nameString = () => (
 
 // setFieldData('fio',getManagement());
 
+console.log('FIOI', errorField('fioi'))
   return (
       <Segment.Group>
       <Segment>{nameString()}</Segment>
@@ -131,6 +106,8 @@ const nameString = () => (
         <RFSegment 
           label={'Подписант ФИО'}
           placeholder={'Иванов Иван Иванович'}
+          hasError = {lastFieldComplete && internalFieldsData.fio === ''}
+          // hasError = {errorField('fio')}
           value = {getManagement()}
           // value = {manager}
           change = {(val)=> setFieldData('fio',val)}
@@ -138,6 +115,8 @@ const nameString = () => (
         <RFSegment 
           label={'Подписант ФИО в родительном падеже'}
           placeholder={'Иванова Ивана Ивановича'}
+          // hasError = {() => lastFieldComplete && internalFieldsData.fioi === ''}
+          hasError = {errorField('fioi')}
           value={''}
           change = {(val)=> setFieldData('fioi',val)}
         />
@@ -146,6 +125,7 @@ const nameString = () => (
         <RFSegment 
           label={'Должность'}
           placeholder={'Директор'}
+          hasError = {lastFieldComplete && internalFieldsData.position === ''}
           value={''}
           change = {(val)=> {
             // setPosa(val);
@@ -155,6 +135,8 @@ const nameString = () => (
         <RFSegment 
           label={'Должность в р.п.'}
           placeholder={'Директора'}
+          // hasError = {lastFieldComplete && internalFieldsData.positiona === ''}
+          hasError = {errorField('positiona')}
           value={''}
           change = {(val)=> setFieldData('positiona',val)}
         />
@@ -163,12 +145,16 @@ const nameString = () => (
         <RFSegment 
           label={'Основание'}
           placeholder={'Устав / Доверенность от 00.00.2021'}
+          // hasError = {lastFieldComplete && internalFieldsData.based === ''}
+          hasError = {errorField('based')}
           value={''}
           change = {(val)=> setFieldData('based',val)}
         />        
         <RFSegment 
           label={'Основание в р.п.'}
           placeholder={'Устава / Доверенности от 00.00.2021'}
+          // hasError = {lastFieldComplete && internalFieldsData.baseda === ''}
+          hasError = {errorField('baseda')}
           value={''}
           change = {(val)=> setFieldData('baseda',val)}
         />                
@@ -272,6 +258,7 @@ const nameString = () => (
                           label={'Расчетный счет'}
                           placeholder={'Укажите номер расчетного счета'}
                           value={''}
+                          componentComplete = {setLastFieldComplete}
                           change = {(val)=> setFieldData('rs',validRS(val))}                          
                           ></MaskedAccountNum>
 

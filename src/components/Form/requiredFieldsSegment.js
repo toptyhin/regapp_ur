@@ -3,11 +3,12 @@ import {Form, Segment,Message } from "semantic-ui-react";
 
 const RFSegment = (props) => {
 
-    const {label, placeholder, value, passBlurEvent = false, change, validator = false, error_message = 'Поле незаполнено'} = props
+    const {label, placeholder, value, passBlurEvent = false, hasError, change, validator = false, error_message = 'Поле незаполнено'} = props
     const [active, setActive] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(hasError);
     const [complete, setComplete] = useState(!!value);
     const [val, setVal] = useState(value);
+    console.log('label / error ', label, error);
     const getColor = () => {
         return active ? 'blue' : complete ? 'green' : error ? 'red' : 'grey'
     }
