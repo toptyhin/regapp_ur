@@ -5,17 +5,15 @@ const RFSegment = (props) => {
 
     const {label, placeholder, value, passBlurEvent = false, hasError, change, validator = false, error_message = 'Поле незаполнено'} = props
     const [active, setActive] = useState(false);
-    const [error, setError] = useState(hasError);
+    const [error, setError] = useState(false);
     const [complete, setComplete] = useState(!!value);
     const [val, setVal] = useState(value);
-    console.log('label / error ', label, error);
     const getColor = () => {
         return active ? 'blue' : complete ? 'green' : error ? 'red' : 'grey'
     }
     const handleChange = (e) => {
         change(e.target.value);
         setVal(e.target.value);
-       
     }
 
     const validate = (e) => {
@@ -39,26 +37,26 @@ const RFSegment = (props) => {
         passBlurEvent && passBlurEvent();
     }
 
-    // const renderError = () => {
-    //     if (error) {
-    //     return (
-    //         <Message
-    //         color='orange'
-    //         header='Ошибка'
-    //         content={error_message}
-    //     />          
-    //     )
-    //     } else {
-    //         return null;
-    //     }
-    // };
+    const renderError = () => {
+        if (hasError) {
+        return (
+            <Message
+            color='orange'
+            // header='Ошибка'
+            content={error_message}
+        />          
+        )
+        } else {
+            return null;
+        }
+    };
 
 
     return (
         <Segment color={getColor()}>
         <Form.Field error={error}>
           <label>{label}</label>
-          {/* {renderError()} */}
+          {renderError()}
           <input 
           placeholder={placeholder}
           value={val}

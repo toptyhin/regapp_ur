@@ -79,10 +79,9 @@ const RequiredFields = (props) => {
     }
   }
   
-  console.log('internalFieldsData', internalFieldsData);
+  
 
   const errorField = (name) => {
-    console.log(name, lastFieldComplete && internalFieldsData[name] === '');
     return lastFieldComplete && internalFieldsData[name] === ''
   };
   
@@ -97,7 +96,7 @@ const nameString = () => (
 
 // setFieldData('fio',getManagement());
 
-console.log('FIOI', errorField('fioi'))
+// console.log('FIOI', errorField('fioi'))
   return (
       <Segment.Group>
       <Segment>{nameString()}</Segment>
@@ -106,8 +105,7 @@ console.log('FIOI', errorField('fioi'))
         <RFSegment 
           label={'Подписант ФИО'}
           placeholder={'Иванов Иван Иванович'}
-          hasError = {lastFieldComplete && internalFieldsData.fio === ''}
-          // hasError = {errorField('fio')}
+          hasError = {errorField('fio')}
           value = {getManagement()}
           // value = {manager}
           change = {(val)=> setFieldData('fio',val)}
@@ -115,8 +113,9 @@ console.log('FIOI', errorField('fioi'))
         <RFSegment 
           label={'Подписант ФИО в родительном падеже'}
           placeholder={'Иванова Ивана Ивановича'}
-          // hasError = {() => lastFieldComplete && internalFieldsData.fioi === ''}
+          // hasError = {lastFieldComplete && internalFieldsData.fioi === ''}
           hasError = {errorField('fioi')}
+          // hasError = {internalFieldsData.fioi === ''}
           value={''}
           change = {(val)=> setFieldData('fioi',val)}
         />
@@ -125,7 +124,8 @@ console.log('FIOI', errorField('fioi'))
         <RFSegment 
           label={'Должность'}
           placeholder={'Директор'}
-          hasError = {lastFieldComplete && internalFieldsData.position === ''}
+          // hasError = {lastFieldComplete && internalFieldsData.position === ''}
+          hasError = {errorField('position')}
           value={''}
           change = {(val)=> {
             // setPosa(val);

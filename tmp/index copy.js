@@ -84,7 +84,7 @@ export default class FormLoading extends Component {
 
   render() {
 
-    console.log(this.state);
+    // console.log(this.state);
 
     const {
       agree,
@@ -623,7 +623,7 @@ export default class FormLoading extends Component {
   }
 
   getContract() {
-    console.log("confirm", this.state);
+    // console.log("confirm", this.state);
     const query = {
       email: this.state.email ? this.state.email : '',
       phone: this.state.phone ? this.state.phone : '',
@@ -646,7 +646,7 @@ export default class FormLoading extends Component {
     fetch(url, options)
     .then(response => response.json())
     .then(t=>{
-      console.log(t)
+      // console.log(t)
       // const doc = new jsPDF();
       // doc.text(t.text,10,10);
       // doc.save("XXX.pdf");
@@ -664,7 +664,7 @@ export default class FormLoading extends Component {
   }
 
   confirmContract() {
-    console.log("confirm", this.state);
+    // console.log("confirm", this.state);
     const query = {
       email: this.state.email ? this.state.email : '',
       phone: this.state.phone ? this.state.phone : '',

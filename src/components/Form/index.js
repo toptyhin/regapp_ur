@@ -35,6 +35,7 @@ export default class FormLoading extends Component {
       datalist: false,
       phone: undefined,
       email: undefined,
+      emailConfirmed: false,
       confirmation: "",
       pendingConfirmation: false,
       contactConfirmed: false,
@@ -43,6 +44,12 @@ export default class FormLoading extends Component {
       error: {
         mailInput: false,
         telInput: false,
+      },
+      step3error: {
+        address:false,
+        docsystem:false,
+        phone:false,
+        mail:false
       },
       cardsNum: 1,
       cardsList: [],
@@ -68,10 +75,63 @@ export default class FormLoading extends Component {
     this.setCompanyDetails = this.setCompanyDetails.bind(this);
   }
 
+  step3FormComplete() {
+    const {
+      address,
+      phone,
+      email,
+      emailConfirmed,
+      step3error,
+      companyDetails
+    } = this.state;    
+
+    let complete = true;
+    const err = step3error;
+
+    if (Object.keys(address).length === 0) {
+      err.address = true;
+      complete = false;
+    } else {
+      err.address = false;
+    }
+
+    if (!companyDetails.docsystem) {
+      err.docsystem = true;
+      complete = false;      
+    } else {
+      err.docsystem = false;
+    }
+
+    if (!phone) {
+      err.phone = true;
+      complete = false;      
+    } else {
+      err.phone = false;
+    }
+
+    if (!email || !emailConfirmed) {
+      err.mail = true;
+      complete = false;            
+    } else {
+      err.mail = false;
+    }
+
+    this.setState({step3error:err});
+    return complete;
+  }
+  setErrorColor(err) {
+    return err ? 'red':'black'
+  }
+
+  setErrorClassName(err) {
+    return err ? 'redborders':''
+  }
+
   render() {
 
     const {
       agree,
+      address,
       step,
       foundData,
       datalist,
@@ -80,6 +140,7 @@ export default class FormLoading extends Component {
       processingRequest,
       cardsNum,
       docoptions,
+      step3error,
       companyDetails,
     } = this.state;
 
@@ -117,8 +178,10 @@ export default class FormLoading extends Component {
     const docSystemFreeType = () => getActiveDocoptions().value === 'oth';
 
     const searchAddressBlock = cardsNum > this.state.cardsList.length 
-        ? (<SearchAddress setSelected={this.setValue.bind(this)} />) 
+        ? (<SearchAddress setSelected={this.setValue.bind(this)} getColor={this.setErrorColor(this.state.step3error.address)} getClassName={this.setErrorClassName(this.state.step3error.address)} />) 
         : '';
+
+
 
     return (
       <Grid>
@@ -301,17 +364,21 @@ export default class FormLoading extends Component {
                            <Form.Input 
                             fluid 
                             required
+                            className={this.setErrorClassName(step3error.docsystem)}
+                            // color={this.setErrorColor(this.state.step3error.docsystem)}q
                             label='Другая:' 
                             placeholder='Введите название'
                             value={companyDetails.docsystem ? companyDetails.docsystem : ''} 
                             onChange={(e,{name,value})=>{
                               this.setCompanyDetails('docsystem',value)
+                              step3error.docsystem = value === ''
+                              this.setState({step3error:step3error});
                             }}
                             />
                         </Transition>
                         
 
-                        <Form.Field>
+                        <Form.Field className={this.setErrorClassName(step3error.phone)} >
                         <label>{"Введите номер телефона"}<span className="required">*</span></label>
                         <IMaskInput 
                             name={'contact_phone'}
@@ -323,6 +390,8 @@ export default class FormLoading extends Component {
                                 this.setState({
                                   phone: unmskedValue
                                 })
+                                step3error.phone = false;
+                                this.setState({step3error:step3error});
                               }
                             }
                         />
@@ -345,12 +414,13 @@ export default class FormLoading extends Component {
 
                         <Form.Checkbox
                           label="Все данные внесены верно"
-                          defaultChecked={false}
+                          checked={agree}
                           onChange={(e) => {
-                            let prevState = e.target.parentElement.querySelector(
-                              "input"
-                            ).checked;
-                            this.setState({ agree: !prevState });
+                            if (this.step3FormComplete()) {
+                              this.setState({ agree: !agree });  
+                            } else {
+                            this.setState({ agree: agree });
+                            }
                           }}
                         />
                         <ButtonGroup fluid>

@@ -75,6 +75,8 @@
 .modal .description {user-select: none;}
 span.required {color:red;}
 
+
+
 @media all and (max-width: 710px) {
   .list .item {grid-template-columns: 45% 55%;font-size: 0.90rem;}
 }

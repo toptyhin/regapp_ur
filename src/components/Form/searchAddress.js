@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Search } from 'semantic-ui-react'
-import AppContext from './appContext';
+import AppContext from './appContext'
+// import '../../index.css'
 
 
 const initialState = {
     loading: false,
     results: [],
     value: '',
-    text: 'Укажите адрес доставки',
-    errorText: 'Уточните адрес',
+    text: 'Адрес доставки',
+    errorText: 'Укажите адрес доставки карт',
     error: false
   };
 const token = 'a677c0dcff5cd2767c0aa85a6793f5430a3be34a';
@@ -35,7 +36,10 @@ const xhr = new XMLHttpRequest();
   const SearchAddress = (props) => {
     const [state, dispatch] = React.useReducer(searchReducer, initialState)
     const { loading, results, value, selected, error, text, errorText } = state;
-    const {stateCont, setAddress} = React.useContext(AppContext)
+    const {stateCont, setAddress} = React.useContext(AppContext);
+    const [resultSelected, setResultSelected] = useState(false);
+    
+    // const [dataPassedError, setDataPassedError] = useState(props.noDataSet)
   
     const timeoutRef = React.useRef()
 
@@ -94,15 +98,29 @@ const xhr = new XMLHttpRequest();
       }
     }, [])
   
+    // console.log('insearch props.noDataSet', props.noDataSet);
+    // console.log('insearch dataPassedError ', dataPassedError);
+
+    // const getColor = () => dataPassedError ? 'red' : 'black';
+    // const getClassName = () => dataPassedError ? 'redborders' : '';
+
+    const concatClassName = () => {
+      const resetError = resultSelected ? '' : props.getClassName;
+      return error ? resetError + ' error': resetError;
+    }
+
     return (
         <div className="field">
+            {/* <label style={{color: resultSelected ? 'black' : props.getColor}}>{error ? errorText:text}</label> */}
             <label>{error ? errorText:text}</label>
               <Search
                 fluid
                 name='address'
-                className={error?'error':''}
+                // className={error ? 'error':''}
+                className = {concatClassName()}
                 loading={loading}
                 onResultSelect={(e, data) => {
+                      setResultSelected(true);
                       props.setSelected(e,{
                           name:'address',
                           value: data.result

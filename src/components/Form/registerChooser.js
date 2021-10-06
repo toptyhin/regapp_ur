@@ -75,7 +75,6 @@ export default class RegisterChooser extends Component {
           fetch(url, options)
           .then(response => response.json())
           .then(obj=>{
-              console.log(obj);
             if (obj.codePending) {
               this.setState({
                 codePending: true,
