@@ -19,6 +19,7 @@ import Cards from "./cards"
 import {IMaskInput} from 'react-imask';
 import RequiredFields from "./requiredFields"
 import PrivateData from "./privateData";
+import Config from "../../config";
 
 
 export default class FormLoading extends Component {
@@ -73,6 +74,7 @@ export default class FormLoading extends Component {
     this.confirmContract = this.confirmContract.bind(this);
     this.getContract = this.getContract.bind(this);
     this.setCompanyDetails = this.setCompanyDetails.bind(this);
+
   }
 
   step3FormComplete() {
@@ -207,6 +209,7 @@ export default class FormLoading extends Component {
                         header="ШАГ 1"
                         content="Необходимые реквизиты. Введите ИНН компании или ИП"
                       />
+
                       <Form.Input
                         action={{
                           content: "Найти",
@@ -676,7 +679,8 @@ export default class FormLoading extends Component {
       cardsNum: this.state.cardsNum,
       cardsList: this.state.cardsList.map(e=>e.replace(/\s/g,'')),
       org: this.state.dadata,
-      details: this.state.companyDetails
+      details: this.state.companyDetails,
+      tarif: Config.tarifid
     }
 
     const url = "https://data.inforkom.ru/api/v1/util/contract/confirm";
