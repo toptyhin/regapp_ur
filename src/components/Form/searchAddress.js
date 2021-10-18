@@ -98,9 +98,6 @@ const xhr = new XMLHttpRequest();
       }
     }, [])
   
-    // console.log('insearch props.noDataSet', props.noDataSet);
-    // console.log('insearch dataPassedError ', dataPassedError);
-
     // const getColor = () => dataPassedError ? 'red' : 'black';
     // const getClassName = () => dataPassedError ? 'redborders' : '';
 
@@ -135,6 +132,7 @@ const xhr = new XMLHttpRequest();
                 results={results}
                 noResultsMessage='Адрес не найден'
                 value={value}
+                selectFirstResult={true}
                 onBlur={()=>{
                   if (!selected || !selected.postcode) {
                     setAddress({});

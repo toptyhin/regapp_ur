@@ -110,54 +110,47 @@ const nameString = () => (
           // value = {manager}
           change = {(val)=> setFieldData('fio',val)}
         />
-        <RFSegment 
+        {/* <RFSegment 
           label={'Подписант ФИО в родительном падеже'}
           placeholder={'Иванова Ивана Ивановича'}
-          // hasError = {lastFieldComplete && internalFieldsData.fioi === ''}
           hasError = {errorField('fioi')}
-          // hasError = {internalFieldsData.fioi === ''}
           value={''}
           change = {(val)=> setFieldData('fioi',val)}
-        />
+        /> */}
         </Segment.Group>
         <Segment.Group horizontal>
         <RFSegment 
           label={'Должность'}
           placeholder={'Директор'}
-          // hasError = {lastFieldComplete && internalFieldsData.position === ''}
           hasError = {errorField('position')}
           value={''}
           change = {(val)=> {
-            // setPosa(val);
             setFieldData('position',val);
           }}
         />
-        <RFSegment 
+        {/* <RFSegment 
           label={'Должность в р.п.'}
           placeholder={'Директора'}
-          // hasError = {lastFieldComplete && internalFieldsData.positiona === ''}
           hasError = {errorField('positiona')}
           value={''}
           change = {(val)=> setFieldData('positiona',val)}
-        />
+        /> */}
         </Segment.Group>
         <Segment.Group horizontal>
         <RFSegment 
           label={'Основание'}
           placeholder={'Устав / Доверенность от 00.00.2021'}
-          // hasError = {lastFieldComplete && internalFieldsData.based === ''}
           hasError = {errorField('based')}
           value={''}
           change = {(val)=> setFieldData('based',val)}
         />        
-        <RFSegment 
+        {/* <RFSegment 
           label={'Основание в р.п.'}
           placeholder={'Устава / Доверенности от 00.00.2021'}
-          // hasError = {lastFieldComplete && internalFieldsData.baseda === ''}
           hasError = {errorField('baseda')}
           value={''}
           change = {(val)=> setFieldData('baseda',val)}
-        />                
+        />                 */}
         </Segment.Group>
         {/* <Segment.Group horizontal>
           <RFSegment 

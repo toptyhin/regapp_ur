@@ -64,7 +64,21 @@ export default class FormLoading extends Component {
       innExists: false,
       processingRequest: false,
       contractno: 0,
-      companyDetails: {},
+      companyDetails: {
+        company:'',
+        dira:'',
+        doca:'',
+        inn:'',
+        kpp:'',
+        ogrn:'',
+        address:'',
+        fio:'',
+        fioi:'',
+        rs:'',
+        bik:'',
+        bank:'', 
+        ks:'',       
+      },
       docoptions: [
         {key: 'dd',value: 'dd', text:'Контур Диадок'},
         {key: 'tz',value: 'tz', text:'ТЕЗИС'},
@@ -782,7 +796,8 @@ export default class FormLoading extends Component {
   }
 
   сompanyDetailsComplete = () => {
-    const required = ['fio','fioi','position', 'positiona', 'based', 'baseda', 'ogrn','bank','bik','ks','rs','baddress'];
+    // const required = ['fio','fioi','position', 'positiona', 'based', 'baseda', 'ogrn','bank','bik','ks','rs','baddress'];
+    const required = ['fio','position', 'based', 'bank','bik','ks','rs','baddress'];
     const {companyDetails} = this.state;    
 
     for (let name of required) {
