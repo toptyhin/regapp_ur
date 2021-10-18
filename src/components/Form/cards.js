@@ -13,6 +13,7 @@ const Cards = (props) =>{
 
     const handleCheckbox = (e,d)=>{
         setOpen(d.checked)
+        props.onCheck(!d.checked);
     }
 
     const checkCard = (v,m) => {
@@ -93,13 +94,14 @@ const Cards = (props) =>{
                 label='У меня уже есть топливные карты Инфорком'
                 onChange={handleCheckbox}
                 ></Checkbox>
-            <Transition
+            {/* <Transition
                 visible={open}
                 animation="fade"
                 duration={500}
-                unmountOnHide={true}
-            >
-                <>
+                // unmountOnHide={true}
+            > */}
+                { open && (
+                    <>
                     <Form.Field className={error ? 'error cardsList':'cardsList'}>
                             <label>{labelText}</label>
                             <div className="mask_action">
@@ -147,7 +149,9 @@ const Cards = (props) =>{
                         ))}
                     </Transition.Group>                    
                 </>
-            </Transition>
+                )}
+                
+            {/* // </Transition> */}
         </Segment>
     )
 }

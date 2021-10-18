@@ -51,7 +51,7 @@ const PrivateData = (props) => {
             </List.Item>    
             <List.Item  key={'li_lk_download'}>
               <List.Description>
-                  <PdfLink data={props.documentData} />
+                  <PdfLink key={'li_doc_link'} data={props.documentData} />
               </List.Description>
             </List.Item>    
           </List>

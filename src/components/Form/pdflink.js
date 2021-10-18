@@ -1,6 +1,9 @@
 import React from 'react'
 import { PDFDownloadLink} from '@react-pdf/renderer';
 import ContractPdf from '../Pdf/contractPdf';
+import { Loader } from 'semantic-ui-react'
+
+const inProgress = () => <><p>Подготовка договора <Loader size={'mini'} active inline /></p></>
 
 const PdfLink = (props) => {
   return (
@@ -28,7 +31,7 @@ const PdfLink = (props) => {
     } 
     fileName="contract.pdf">
       {({ blob, url, loading, error }) =>
-        loading ? 'Подготовка договора...' : 'Скачать договор'
+        loading ? inProgress() : 'Скачать договор'
       }
     </PDFDownloadLink>
   </div>

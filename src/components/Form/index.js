@@ -20,6 +20,8 @@ import {IMaskInput} from 'react-imask';
 import RequiredFields from "./requiredFields"
 import PrivateData from "./privateData";
 import Config from "../../config";
+import gasoline from "../../50001.png"
+
 
 
 export default class FormLoading extends Component {
@@ -52,6 +54,7 @@ export default class FormLoading extends Component {
         phone:false,
         mail:false
       },
+      plusMinusVisible: true,
       cardsNum: 1,
       cardsList: [],
       address: {},
@@ -66,6 +69,7 @@ export default class FormLoading extends Component {
         {key: 'dd',value: 'dd', text:'Контур Диадок'},
         {key: 'tz',value: 'tz', text:'ТЕЗИС'},
         {key: 'log',value: 'log', text:'Логика СЭД'},
+        {key: 'none',value: 'none', text:'Не использую ЭДО'},
         {key: 'oth',value: 'oth', text:'Другая', active: true},
       ],
     };
@@ -142,6 +146,8 @@ export default class FormLoading extends Component {
       processingRequest,
       cardsNum,
       docoptions,
+      plusMinusVisible,
+      cardsList,
       step3error,
       companyDetails,
     } = this.state;
@@ -178,6 +184,7 @@ export default class FormLoading extends Component {
     }
 
     const docSystemFreeType = () => getActiveDocoptions().value === 'oth';
+    const isPlusMinusVisible = () => plusMinusVisible;
 
     const searchAddressBlock = cardsNum > this.state.cardsList.length 
         ? (<SearchAddress setSelected={this.setValue.bind(this)} getColor={this.setErrorColor(this.state.step3error.address)} getClassName={this.setErrorClassName(this.state.step3error.address)} />) 
@@ -187,6 +194,27 @@ export default class FormLoading extends Component {
 
     return (
       <Grid>
+        <Grid.Row>
+        <Grid.Column width={16}>
+          <div style={{
+            borderRadius:'.28571429rem',
+            boxShadow: '0 0 0 1px rgb(34 36 38 / 22%) inset, 0 0 0 0 transparent',
+            backgroundColor: '#edeff0',
+            padding: '16px',
+            color: 'rgba(0,0,0,.87)',
+            display: 'flex',
+            alignItems: 'center'
+            }}>
+              <img src={gasoline} style={{maxWidth:'80px', marginRight: '20px'}}/>
+            <div>
+            <p> Здесь вы можете самостоятельно ввести данные для заключения регистрации договора.</p>
+            <p> После завершения регистрации договора, мы вышлем Вам необходимое количество топливных карт и Вам будет доступен вход в личный кабинет.</p>
+            <p> Можете заправлять свой автопарк на любых АЗС и получать скидки на топливо</p>
+            <p> Если у Вас возникли вопросы - позвоните менеджеру +7 495 781-44-44 доб. 4263</p>
+            </div>
+          </div>
+        </Grid.Column>
+        </Grid.Row>
         <Grid.Row>
           <LkSteps
             active={step}
@@ -209,7 +237,6 @@ export default class FormLoading extends Component {
                         header="ШАГ 1"
                         content="Необходимые реквизиты. Введите ИНН компании или ИП"
                       />
-
                       <Form.Input
                         action={{
                           content: "Найти",
@@ -240,7 +267,7 @@ export default class FormLoading extends Component {
                       >
                           <Message
                           negative
-                          content="У нас уже есть договор"
+                          content="У нас уже есть договор. Пожалуйста, обратитесь к менеджеру по телефону: +7 495 781-44-44 доб. 4263"
                           >
 
                           </Message>
@@ -333,7 +360,7 @@ export default class FormLoading extends Component {
                         content="Уточнить данные по топливным картам"
                       />
                       <Segment>
-
+                      
                       <Cards
                           passValue={(v) => 
                             this.setState({
@@ -341,24 +368,26 @@ export default class FormLoading extends Component {
                               cardsNum: v.length > cardsNum ? v.length : cardsNum
                             })
                           }
-                        />
-
-                        <PlusMinusInput
-                          name="cardsNum"
-                          min={1}
-                          max={5}
-                          preset={this.state.cardsList.length}
-                          passVal={this.setValue.bind(this)}
-                        />
+                          onCheck={(visible)=>this.setState({plusMinusVisible:visible})}
+                      />
+                      {isPlusMinusVisible() && (
+                      <PlusMinusInput
+                            name="cardsNum"
+                            min={1}
+                            max={5}
+                            preset={this.state.cardsList.length}
+                            passVal={this.setValue.bind(this)}
+                          />
+                      )}
                         
-                        {searchAddressBlock}
+                      {searchAddressBlock}
 
-                        <Form.Select
+                      <Form.Select
                           fluid
                           label='Cистема документооборота'
                           options={docoptions}
                           onChange={setActiveDocoptions}
-                        />
+                      />
                         <Transition
                           visible={docSystemFreeType()}
                           animation="scale"

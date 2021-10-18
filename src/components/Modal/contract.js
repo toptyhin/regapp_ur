@@ -15,7 +15,20 @@ const ModalContract = (props) => {
       email: state.email ? state.email : '',
       phone: state.phone ? state.phone : '',
       address: state.address,
-      org: state.dadata
+      details: {
+        fio: state.companyDetails.fio,
+        fioi: state.companyDetails.fioi,
+        position: state.companyDetails.position,
+        positiona: state.companyDetails.positiona,
+        based: state.companyDetails.based,
+        baseda: state.companyDetails.baseda,
+        bik: state.companyDetails.bik,
+        bank: state.companyDetails.bank,
+        ks: state.companyDetails.ks,
+        rs: state.companyDetails.rs,
+      },
+      org: state.dadata,
+      with_data: true
     }
 
     const url = "https://data.inforkom.ru/api/v1/util/contract";
@@ -52,7 +65,7 @@ const ModalContract = (props) => {
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)} primary>
-          Продолжить <Icon name='chevron right' />
+          OK <Icon name='chevron right' />
         </Button>
       </Modal.Actions>
     </Modal>
