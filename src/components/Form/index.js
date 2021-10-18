@@ -137,7 +137,6 @@ export default class FormLoading extends Component {
 
     const {
       agree,
-      address,
       step,
       foundData,
       datalist,
@@ -147,7 +146,6 @@ export default class FormLoading extends Component {
       cardsNum,
       docoptions,
       plusMinusVisible,
-      cardsList,
       step3error,
       companyDetails,
     } = this.state;
@@ -397,7 +395,6 @@ export default class FormLoading extends Component {
                             fluid 
                             required
                             className={this.setErrorClassName(step3error.docsystem)}
-                            // color={this.setErrorColor(this.state.step3error.docsystem)}q
                             label='Другая:' 
                             placeholder='Введите название'
                             value={companyDetails.docsystem ? companyDetails.docsystem : ''} 
