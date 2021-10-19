@@ -11,7 +11,7 @@ export default class RegisterChooser extends Component {
             error: false,
             codePending: false,
             confirmationError: false,
-            email:'',
+            email: props.value,
             mailConfirmed: false,
         };
         this.validateInput = this.validateInput.bind(this);

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Search } from 'semantic-ui-react'
-import AppContext from './appContext'
+import AppContext from './appContext' 
 // import '../../index.css'
 
 
@@ -36,7 +36,11 @@ const xhr = new XMLHttpRequest();
   const SearchAddress = (props) => {
     const [state, dispatch] = React.useReducer(searchReducer, initialState)
     const { loading, results, value, selected, error, text, errorText } = state;
-    const {stateCont, setAddress} = React.useContext(AppContext);
+    const stateCont = React.useContext(AppContext).state;
+    const setAddress = React.useContext(AppContext).setAddress;
+
+    const getValue = () => stateCont.address  && stateCont.address.title ? stateCont.address.title : value;
+
     const [resultSelected, setResultSelected] = useState(false);
     
     // const [dataPassedError, setDataPassedError] = useState(props.noDataSet)
@@ -131,7 +135,7 @@ const xhr = new XMLHttpRequest();
                 minCharacters={3}
                 results={results}
                 noResultsMessage='Адрес не найден'
-                value={value}
+                value={getValue()}
                 selectFirstResult={true}
                 onBlur={()=>{
                   if (!selected || !selected.postcode) {

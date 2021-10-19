@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Button, Checkbox, Form, Icon, Segment, Transition, List} from "semantic-ui-react";
 import {IMaskInput} from 'react-imask';
+import AppContext from './appContext'
 
 const Cards = (props) =>{
 
@@ -9,7 +10,9 @@ const Cards = (props) =>{
     const [errorText, setErrorText] = useState('');
     const [current, setCurrent] = useState('');
     const [inputComplete, setInputComplete] = useState(false);
-    const [cards, setCards] = useState([]);
+    const {state} = React.useContext(AppContext);
+
+    const [cards, setCards] = useState(state.cardsList ? state.cardsList : []);
 
     const handleCheckbox = (e,d)=>{
         setOpen(d.checked)
@@ -92,6 +95,7 @@ const Cards = (props) =>{
         <Segment>
             <Checkbox
                 label='У меня уже есть топливные карты Инфорком'
+                checked={}
                 onChange={handleCheckbox}
                 ></Checkbox>
             {/* <Transition

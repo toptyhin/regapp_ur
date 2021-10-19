@@ -172,6 +172,10 @@ export default class FormLoading extends Component {
         this.setState({ address: address });
       },
     };
+
+    if (contextSate.state.docsystem) {
+      docoptions = docoptions.map(op => op.active = op.text === contextSate.state.docsystem)
+    }
     
     let confirmBtnDisabled = true;
 
@@ -336,6 +340,9 @@ export default class FormLoading extends Component {
                     animation="fly left"
                     duration={500}
                   >
+
+                  {/* {console.log('context in Index', contextSate)} */}
+
                     <Segment raised disabled={!foundData}>
                       <Message
                         header="ШАГ 2"
@@ -401,6 +408,7 @@ export default class FormLoading extends Component {
                           label='Cистема документооборота'
                           options={docoptions}
                           onChange={setActiveDocoptions}
+                          defaultValue={getActiveDocoptions().key}
                       />
                         <Transition
                           visible={docSystemFreeType()}
@@ -430,6 +438,7 @@ export default class FormLoading extends Component {
                             name={'contact_phone'}
                             mask={"+{7} 000 000-00-00"}
                             unmask={true}
+                            value={contextSate.state.phone ? contextSate.state.phone : ''}
                             placeholder={"+7 999 999-99-99"}
                             onComplete={
                               (unmskedValue)=>{
@@ -452,6 +461,7 @@ export default class FormLoading extends Component {
                             name = 'email'
                             placeholder = 'name@mail.ru'
                             disabled = {false}
+                            value={contextSate.state.email ? contextSate.state.email : ''}
                             passValue = {this.setValue.bind(this)}
 
                           />

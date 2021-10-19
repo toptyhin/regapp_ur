@@ -8,7 +8,7 @@ import {IMaskInput} from 'react-imask';
     const [active, setActive] = useState(false);
     const [error, setError] = useState(false);
     const [complete, setComplete] = useState(false);
-    const [val, setVal] = useState('');
+    const [val, setVal] = useState(props.value);
     const getColor = () => {
         if (active && complete) {
             return 'green';
@@ -55,6 +55,7 @@ import {IMaskInput} from 'react-imask';
             name={'000 00 000 0 0000 0000000'}
             mask={"000  00  000  0  0000  0000000"}
             unmask={true}
+            value={val}
             placeholder={placeholder}
             onBlur={handleBlur}
             onAccept={handleChange2}

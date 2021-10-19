@@ -8,23 +8,33 @@ import {
   import ReactDadataBox from 'react-dadata-box';
   import RFSegment from './requiredFieldsSegment';
   import MaskedAccountNum from "./maskedAccountNum";
+  import AppContext from './appContext'
   
 
 const RequiredFields = (props) => {
 
-  const [bankName, setBankName] = useState(false);
+
+  const {state} = React.useContext(AppContext);
+  const [bankName, setBankName] = useState(state.companyDetails.bank ? state.companyDetails.bank : false);
   const [bankDetails, setBankDetails] = useState({
-    address:'',
-    bik:'',
-    inn:'',
-    name:'',
-    corr:'',
-    account:''
+    address: state.companyDetails.baddress ? state.companyDetails.baddress : '',
+    bik: state.companyDetails.bik ? state.companyDetails.bik : '',
+    inn: '',
+    name: state.companyDetails.bank ? state.companyDetails.bank : '',
+    corr: state.companyDetails.ks ? state.companyDetails.ks : '',
+    account: state.companyDetails.rs ? state.companyDetails.rs : ''
   });
+
 
   const [lastFieldComplete, setLastFieldComplete] = useState(false);
 
-  const getManagement = () => props.dadata.management && props.dadata.management.name ? props.dadata.management.name : '';
+  const getManagement = () => {
+    let name = state.companyDetails.fio;
+    if (!name ){
+      name = props.dadata.management && props.dadata.management.name ? props.dadata.management.name : ''
+    }
+    return name;
+  };
   
   const bankNameRender = () => bankName ? 'Название банка':'БИК Банка'
   const bankSelected = (sugg) => {
@@ -51,15 +61,17 @@ const RequiredFields = (props) => {
   //   })
   // }
 
+  console.log(state);
+  console.log(state.companyDetails);
 
   const [internalFieldsData, setInternalFieldsData] = useState(
     {
       'fio': getManagement(),
-      'fioi': '',
-      'position': '',
-      'positiona': '',
-      'based': '',
-      'baseda': '',
+      'fioi': state.companyDetails.fioi ? state.companyDetails.fioi : '',
+      'position': state.companyDetails.position ? state.companyDetails.position : '',
+      'positiona': state.companyDetails.positiona ? state.companyDetails.positiona : '',
+      'based': state.companyDetails.based ? state.companyDetails.based : '',
+      'baseda': state.companyDetails.baseda ? state.companyDetails.baseda : '',
     }
   );
 
@@ -102,90 +114,36 @@ const nameString = () => (
       <Segment>{nameString()}</Segment>
       <Segment.Group>
         <Segment.Group horizontal>
-        <RFSegment 
-          label={'Подписант ФИО'}
-          placeholder={'Иванов Иван Иванович'}
-          hasError = {errorField('fio')}
-          value = {getManagement()}
-          // value = {manager}
-          change = {(val)=> setFieldData('fio',val)}
-        />
-        {/* <RFSegment 
-          label={'Подписант ФИО в родительном падеже'}
-          placeholder={'Иванова Ивана Ивановича'}
-          hasError = {errorField('fioi')}
-          value={''}
-          change = {(val)=> setFieldData('fioi',val)}
-        /> */}
+          <RFSegment 
+            label={'Подписант ФИО'}
+            placeholder={'Иванов Иван Иванович'}
+            hasError = {errorField('fio')}
+            value = {getManagement()}
+            // value = {manager}
+            change = {(val)=> setFieldData('fio',val)}
+          />
         </Segment.Group>
         <Segment.Group horizontal>
-        <RFSegment 
-          label={'Должность'}
-          placeholder={'Директор'}
-          hasError = {errorField('position')}
-          value={''}
-          change = {(val)=> {
-            setFieldData('position',val);
-          }}
-        />
-        {/* <RFSegment 
-          label={'Должность в р.п.'}
-          placeholder={'Директора'}
-          hasError = {errorField('positiona')}
-          value={''}
-          change = {(val)=> setFieldData('positiona',val)}
-        /> */}
+          <RFSegment 
+            label={'Должность'}
+            placeholder={'Директор'}
+            hasError = {errorField('position')}
+            value={internalFieldsData.position}
+            change = {(val)=> {
+              setFieldData('position',val);
+            }}
+          />
         </Segment.Group>
         <Segment.Group horizontal>
-        <RFSegment 
-          label={'Основание'}
-          placeholder={'Устав / Доверенность от 00.00.2021'}
-          hasError = {errorField('based')}
-          value={''}
-          change = {(val)=> setFieldData('based',val)}
-        />        
-        {/* <RFSegment 
-          label={'Основание в р.п.'}
-          placeholder={'Устава / Доверенности от 00.00.2021'}
-          hasError = {errorField('baseda')}
-          value={''}
-          change = {(val)=> setFieldData('baseda',val)}
-        />                 */}
+          <RFSegment 
+            label={'Основание'}
+            placeholder={'Устав / Доверенность от 00.00.2021'}
+            hasError = {errorField('based')}
+            value={internalFieldsData.based}
+            change = {(val)=> setFieldData('based',val)}
+          />        
         </Segment.Group>
-        {/* <Segment.Group horizontal>
-          <RFSegment 
-            label={'ИНН'}
-            placeholder={'ИНН'}
-            value={(props.dadata.inn ? props.dadata.inn : '')}
-            change = {(val)=> setFieldData('inn',val)}
-          />             
-          <RFSegment 
-            label={'КПП'}
-            placeholder={'КПП'}
-            value={(props.dadata.kpp ? props.dadata.kpp : '')}
-            change = {(val)=> setFieldData('kpp',val)}
-          />             
-        </Segment.Group> */}
-        {/* <Segment.Group horizontal>
-          <RFSegment 
-            label={'ОГРН'}
-            placeholder={'ОГРН'}
-            value={(props.dadata.ogrn ? props.dadata.ogrn : '')}
-            change = {(val)=> setFieldData('ogrn',val)}
-          />                       
-          <RFSegment 
-            label={'ОКПО'}
-            placeholder={'ОКПО'}
-            value={(props.dadata.okpo ? props.dadata.okpo : '')}
-            change = {(val)=> setFieldData('okpo',val)}
-          />         
-          <RFSegment 
-            label={'ОКВЭД'}
-            placeholder={'ОКВЭД'}
-            value={(props.dadata.okved ? props.dadata.okved :'')}
-            change = {(val)=> setFieldData('okved',val)}
-          />                                 
-        </Segment.Group> */}
+
         <Segment>Банковские реквизиты</Segment>
         <Segment>
           <Form.Field>
@@ -195,6 +153,7 @@ const nameString = () => (
               type="bank"
               placeholder="БИК"
               onChange={bankSelected} 
+              query={bankName ? bankName : ''}
               />
           </Form.Field>     
         </Segment>
@@ -238,19 +197,10 @@ const nameString = () => (
                             </Segment>
                           </Segment.Group>
 
-                          {/* <RFSegment 
-                            label={'Расчетный счет'}
-                            placeholder={'Укажите номер расчетного счета'}
-                            error_message={'В номере расчетного счета должно быть 20 цифр'}
-                            value={''}
-                            change = {(val)=> setFieldData('rs',validRS(val))}
-                            validator = {(e)=>!!e.match(/^\d{20}$/)}
-                          />  */}
-
                           <MaskedAccountNum
                           label={'Расчетный счет'}
                           placeholder={'Укажите номер расчетного счета'}
-                          value={''}
+                          value={bankDetails.account}
                           componentComplete = {setLastFieldComplete}
                           change = {(val)=> setFieldData('rs',validRS(val))}                          
                           ></MaskedAccountNum>
