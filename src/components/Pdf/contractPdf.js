@@ -138,7 +138,51 @@ Font.register({
 
 const ContractPdf = (props) => {
   
-  const {contractdate,contractno,company,fio, fioi,doca,dira,orginn,orgkpp = '',ogrn = '',address = '',bankrs = '',bik = '',bank = '',bankks = '',email,phone} = props;
+  const {contractdate,contractno,company,fio, doc, pos, orginn,orgkpp = '',ogrn = '',address = '',bankrs = '',bik = '',bank = '',bankks = '',email,phone,cardsList,cardsNum} = props;
+  let fioi = props.fioi ? props.fioi : '___________'
+  const tryDoc = () => {
+    let doca = '________'
+    if (doc) {
+      const trimmed = doc.toLowerCase().replace(/\s/g,'');
+      if (trimmed.indexOf('устав') === 0) {
+        doca = doc.replace(/устав/i, 'Устава');
+      }
+      if (trimmed.indexOf('доверенность') === 0) {
+        doca = doc.replace(/доверенность/i, 'Доверенности');
+      }      
+      if (trimmed.indexOf('решение') === 0) {
+        doca = doc.replace(/решение/i, 'Решения');
+      }            
+    }
+    return doca;
+  }
+  const tryPos = () => {
+    let posa = '________'
+
+    if (pos) {
+      const trimmed = pos.toLowerCase().replace(/\s/g,'');
+      switch (trimmed) {
+        case 'генеральныйдиректор':
+          posa = 'Генерального директора';
+          break;
+          case 'директор':
+            posa = 'директора';
+            break;  
+            case 'засестительгенеральногодиректора':
+              posa = 'Заместителя Генерального директора';
+              break;              
+              case 'коммерческийдиректор':
+                posa = 'Коммерческого директора';
+                break;
+                default:
+                  posa = '________';             
+      }
+    }
+
+    return posa;
+  }  
+  const doca = tryDoc();
+  const dira = tryPos();
 
   const bs = '0.5pt solid grey';
 
@@ -233,6 +277,37 @@ const ContractPdf = (props) => {
 
     return arr;
   }
+
+  const nonEmpty4Table = (numrows) => {
+    const row = (n,text,last) =>{
+      const border = last ? '0.5pt solid grey' : 'none';
+      const card = text !== '' ? 'Номер карты ' +text : '';
+      const fuel = text !== '' ? 'Дизель/Бензин/Газ' : '';
+      const limit = text !== '' ? '300/150/150' : '';
+      return (
+      <>
+      <Text style={[styles.cell4,{width:'10%', borderBottom: border }]}>{n+1}</Text>
+      <Text style={[styles.cell4,{borderBottom: border}]}>{card}</Text>
+      <Text style={[styles.cell4,{borderBottom: border}]}>{fuel}</Text>
+      <Text style={[styles.cell4r,{borderBottom: border}]}>{limit}</Text>
+      </>
+    )};
+    let arr = [];
+    cardsList.forEach((e,i)=>{
+      arr.push(row(i, e, i === numrows-1));
+    })
+    const tableLen = numrows-cardsList.length > 0 ? numrows-cardsList.length : 3;
+    for (let i = 0; i<tableLen; i++ ) {
+      arr.push(row(i,'', i === tableLen-1));
+    }
+
+    return arr;
+  }
+
+  const numberOfCards = cardsList.length ? cardsList.length : cardsNum;
+
+  const hasCards = () => cardsList.length > 0;
+  const hasNoCards = () => cardsList.length === 0;
 
     return (<Document>
         <Page size="A4" style={styles.body}>    
@@ -501,7 +576,7 @@ const ContractPdf = (props) => {
             ПОРЯДОК ОПЛАТЫ
             </Text>
           <Text style={[styles.p,{lineHeight:2}]}>{`${company} в лице ${dira} ${fioi} действующего на основании ${doca} телефонный код города _____________, телефоны _________________________, факс ______________________, e-mail _____________________________________,
-          просит изготовить и выдать карты ИНФОРКОМ в количестве __________штук.`} </Text>
+          просит изготовить и выдать карты ИНФОРКОМ в количестве ${numberOfCards} штук.`} </Text>
 
           <Text style={styles.p}>Порядок  оплаты - предоплата</Text>
           <Text style={styles.p}>Стоимость активации одной карты - 288 руб.</Text>
@@ -512,7 +587,8 @@ const ContractPdf = (props) => {
                 <Text style={styles.cell4}>Вид топлива
                   (ДТ, Бензин, газ, реагент)</Text>
                 <Text style={styles.cell4r}>Лимит литров в сутки на каждый автомобиль</Text>
-                {empty4Table(12)}
+                {hasNoCards() && empty4Table(12)}
+                {hasCards() && nonEmpty4Table(12)}
           </View>
 
           <Text style={[styles.p,{fontWeight:'bold', marginBottom: 20}]}>Внимание: Агент обязуется обеспечить соблюдение заявленного Принципалом суточного лимита (отличного от 400 литров) только при заправке на АЗС, оборудованных терминалами (электронными устройствами для считывания информации с карт). Терминалами оборудована только часть из тех АЗС, на которых будет заправляться автотранспорт Принципала. На АЗС, не оборудованных терминалами, Агент обязуется обеспечить соблюдение суточного  лимита, применительно к каждой АЗС, в размере 400 литров, что не препятствует предъявителю карты превысить указанный лимит путем заправки на нескольких АЗС.</Text>

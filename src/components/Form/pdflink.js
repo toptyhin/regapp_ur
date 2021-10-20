@@ -13,6 +13,8 @@ const PdfLink = (props) => {
     contractno={props.data.contractno}
     contractdate={props.data.contractdate}
     company={props.data.company}
+    pos={props.data.pos}
+    doc={props.data.doc}    
     dira={props.data.dira}
     doca={props.data.doca}
     orginn={props.data.orginn}
@@ -27,6 +29,8 @@ const PdfLink = (props) => {
     bank={props.data.bank}
     bankks={props.data.bankks}
     phone={props.data.phone}
+    cardsList={props.data.cardsList}
+    cardsNum={props.data.cardsNum}
     />
     } 
     fileName="contract.pdf">

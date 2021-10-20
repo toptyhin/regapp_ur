@@ -4,7 +4,7 @@ import {IMaskInput} from 'react-imask';
 
 
   const MaskedAccountNum = (props) => {
-    const {label, change, componentComplete, placeholder, error_message = 'Поле незаполнено'} = props
+    const {label, change, componentComplete, placeholder} = props
     const [active, setActive] = useState(false);
     const [error, setError] = useState(false);
     const [complete, setComplete] = useState(false);

@@ -166,13 +166,15 @@ export default class RegisterChooser extends Component {
                 //     >
                 // </Form.Input>
                     // <Form onSubmit={this.checkConfirmationCode}>
-                    <Form.Group>
+                    <Form.Group style={{alignItems:'end'}}>
                         <Form.Input
                             // error={error}
+                            label={'Введите адрес электронной почты'}
                             placeholder={this.props.placeholder} 
                             name={this.props.name} 
                             value={email}
                             onChange={this.handleChange}
+                            required={true}
                         />
                         <Form.Button 
                             color= {(mailConfirmed ? 'green' : 'orange')}

@@ -82,7 +82,9 @@ const xhr = new XMLHttpRequest();
                     address: i.value.replace(i.data.region_with_type+',','').trim()
 
                   }
-                )})
+                )
+                return false;
+              })
               
       
               if (suggestions && suggestions.length) {

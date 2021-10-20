@@ -28,7 +28,9 @@ const ModalContract = (props) => {
         rs: state.companyDetails.rs,
       },
       org: state.dadata,
-      with_data: true
+      with_data: true,
+      cardsList: state.cardsList,
+      cardsNum: state.cardsNum
     }
 
     const url = "https://data.inforkom.ru/api/v1/util/contract";

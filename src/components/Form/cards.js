@@ -5,12 +5,13 @@ import AppContext from './appContext'
 
 const Cards = (props) =>{
 
-    const [open, setOpen] = useState(false);
+    
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [current, setCurrent] = useState('');
     const [inputComplete, setInputComplete] = useState(false);
     const {state} = React.useContext(AppContext);
+    const [open, setOpen] = useState(state.cardsList.length !== 0);
 
     const [cards, setCards] = useState(state.cardsList ? state.cardsList : []);
 
@@ -95,7 +96,7 @@ const Cards = (props) =>{
         <Segment>
             <Checkbox
                 label='У меня уже есть топливные карты Инфорком'
-                checked={}
+                defaultChecked={open}
                 onChange={handleCheckbox}
                 ></Checkbox>
             {/* <Transition

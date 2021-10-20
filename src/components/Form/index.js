@@ -80,11 +80,11 @@ export default class FormLoading extends Component {
         ks:'',       
       },
       docoptions: [
-        {key: 'dd',value: 'dd', text:'Контур Диадок'},
+        {key: 'dd',value: 'dd', text:'Контур Диадок',active: true},
         {key: 'tz',value: 'tz', text:'ТЕЗИС'},
         {key: 'log',value: 'log', text:'Логика СЭД'},
         {key: 'none',value: 'none', text:'Не использую ЭДО'},
-        {key: 'oth',value: 'oth', text:'Другая', active: true},
+        {key: 'oth',value: 'oth', text:'Другая'},
       ],
     };
     this.searchResults = [];
@@ -102,20 +102,30 @@ export default class FormLoading extends Component {
       email,
       emailConfirmed,
       step3error,
-      companyDetails
+      companyDetails,
+      cardsList,
+      docoptions
     } = this.state;    
 
     let complete = true;
     const err = step3error;
 
-    if (Object.keys(address).length === 0) {
-      err.address = true;
-      complete = false;
-    } else {
-      err.address = false;
+    if (cardsList.length === 0) {
+
+      if (Object.keys(address).length === 0) {
+        err.address = true;
+        complete = false;
+      } else {
+        err.address = false;
+      }
+
     }
 
-    if (!companyDetails.docsystem) {
+    const active_docs = docoptions.filter(e => {
+      return !!e.active;
+    });
+
+    if (active_docs[0].value === 'oth' && !companyDetails.docsystem) {
       err.docsystem = true;
       complete = false;      
     } else {
@@ -139,6 +149,7 @@ export default class FormLoading extends Component {
     this.setState({step3error:err});
     return complete;
   }
+
   setErrorColor(err) {
     return err ? 'red':'black'
   }
@@ -151,7 +162,6 @@ export default class FormLoading extends Component {
 
     const {
       agree,
-      address,
       step,
       foundData,
       datalist,
@@ -159,12 +169,12 @@ export default class FormLoading extends Component {
       innExists,
       processingRequest,
       cardsNum,
-      docoptions,
       plusMinusVisible,
-      cardsList,
       step3error,
       companyDetails,
     } = this.state;
+
+    let docoptions = this.state.docoptions;
 
     const contextSate = {
       state: this.state,
@@ -223,7 +233,7 @@ export default class FormLoading extends Component {
             display: 'flex',
             alignItems: 'center'
             }}>
-              <img src={gasoline} style={{maxWidth:'80px', marginRight: '20px'}}/>
+              <img src={gasoline} style={{maxWidth:'80px', marginRight: '20px'}} alt='fs'/>
             <div>
             <p> Здесь вы можете самостоятельно ввести данные для заключения регистрации договора.</p>
             <p> После завершения регистрации договора, мы вышлем Вам необходимое количество топливных карт и Вам будет доступен вход в личный кабинет.</p>
@@ -340,8 +350,6 @@ export default class FormLoading extends Component {
                     animation="fly left"
                     duration={500}
                   >
-
-                  {/* {console.log('context in Index', contextSate)} */}
 
                     <Segment raised disabled={!foundData}>
                       <Message
@@ -510,7 +518,9 @@ export default class FormLoading extends Component {
                         contractno: this.state.lkData.docno,
                         contractdate:this.state.lkData.docdate,
                         company: this.state.companyDetails.name,
+                        pos: this.state.companyDetails.position,
                         dira: this.state.companyDetails.positiona,
+                        doc: this.state.companyDetails.based,
                         doca: this.state.companyDetails.baseda,
                         orginn: this.state.companyDetails.inn,
                         orgkpp: this.state.companyDetails.kpp,
@@ -523,7 +533,9 @@ export default class FormLoading extends Component {
                         bik: this.state.companyDetails.bik,
                         bank: this.state.companyDetails.bank,
                         bankks: this.state.companyDetails.ks,
-                        phone: this.state.phone
+                        phone: this.state.phone,
+                        cardsList: this.state.cardsList,
+                        cardsNum: this.state.cardsNum
                       }}
                     />
                   </Transition>
@@ -590,6 +602,7 @@ export default class FormLoading extends Component {
           management: r.data.management,
           type: r.data.type,
         });
+        return false;
       });
 
       this.setState({
@@ -774,6 +787,7 @@ export default class FormLoading extends Component {
     st[n.name] = n.value;
     this.setState(st);
   };
+
   setUnmaskedValue = (val, name) => {
     let st = {};
     st[name] = val;

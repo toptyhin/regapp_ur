@@ -61,9 +61,6 @@ const RequiredFields = (props) => {
   //   })
   // }
 
-  console.log(state);
-  console.log(state.companyDetails);
-
   const [internalFieldsData, setInternalFieldsData] = useState(
     {
       'fio': getManagement(),
