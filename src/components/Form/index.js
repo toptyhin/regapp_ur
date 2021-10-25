@@ -824,6 +824,10 @@ export default class FormLoading extends Component {
     const required = ['fio','position', 'based', 'bank','bik','ks','rs','baddress'];
     const {companyDetails} = this.state;    
 
+    if (companyDetails.rs && companyDetails.rs.replace(/\D+/g,'').length !== 20 ) {
+      return false;
+    }
+
     for (let name of required) {
       if (!companyDetails[name] || companyDetails[name] === '') {
         return false;

@@ -139,9 +139,9 @@ Font.register({
 const ContractPdf = (props) => {
   
   const {contractdate,contractno,company,fio, doc, pos, orginn,orgkpp = '',ogrn = '',address = '',bankrs = '',bik = '',bank = '',bankks = '',email,phone,cardsList,cardsNum} = props;
-  let fioi = props.fioi ? props.fioi : '___________'
+  let fioi = props.fioi ? props.fioi : props.fio;
   const tryDoc = () => {
-    let doca = '________'
+    let doca = doc;
     if (doc) {
       const trimmed = doc.toLowerCase().replace(/\s/g,'');
       if (trimmed.indexOf('устав') === 0) {
@@ -157,7 +157,7 @@ const ContractPdf = (props) => {
     return doca;
   }
   const tryPos = () => {
-    let posa = '________'
+    let posa = pos;
 
     if (pos) {
       const trimmed = pos.toLowerCase().replace(/\s/g,'');

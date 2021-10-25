@@ -29,6 +29,10 @@ const Cards = (props) =>{
                     setInputComplete(true);
                     setError(false);
                     setCurrent(m._value);
+                    let arr = [...cards];
+                    arr.push(current)
+                    props.passValue(arr);
+                    setCards(arr)                    
                 } else {
                     if (cards.indexOf(m._value) !== -1) {
                         setError(true);
@@ -48,6 +52,7 @@ const Cards = (props) =>{
 
     const addCard = () => {
         if (current !=='' && inputComplete && cards.indexOf(current) === -1) {
+            console.log('addCrd proceed');
             let arr = [...cards];
             arr.push(current)
             props.passValue(arr);

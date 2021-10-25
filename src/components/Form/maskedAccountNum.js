@@ -34,7 +34,8 @@ import {IMaskInput} from 'react-imask';
 
     const handleBlur = () => {
         setActive(false);
-        !complete && setError(true);
+        change(val);
+        !complete && setError(true) && componentComplete(false);;
     }
     
     // const validate = (e) => {
