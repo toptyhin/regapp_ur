@@ -61,7 +61,7 @@ const ModalContract = (props) => {
         <Button basic disabled={!props.active} color={props.active ? 'orange': 'grey'}>Прочитать договор</Button>
       }
     >
-      <Modal.Header>Договор</Modal.Header>
+      <Modal.Header>Договор предварительный просмотр <small style={{fontWeight:400,fontSize:'12px'}}>(после регистрации вам будет доступен подписанный договор с номером)</small></Modal.Header>
       <Modal.Content scrolling>
     <Modal.Description><div dangerouslySetInnerHTML={{__html:html}}></div></Modal.Description>
       </Modal.Content>

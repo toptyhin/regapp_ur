@@ -30,7 +30,7 @@ const Cards = (props) =>{
                     setError(false);
                     setCurrent(m._value);
                     let arr = [...cards];
-                    arr.push(current)
+                    arr.push(m._value)
                     props.passValue(arr);
                     setCards(arr)                    
                 } else {
