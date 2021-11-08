@@ -175,7 +175,7 @@ const ContractPdf = (props) => {
                 posa = 'Коммерческого директора';
                 break;
                 default:
-                  posa = '________';             
+                  posa = pos;             
       }
     }
 

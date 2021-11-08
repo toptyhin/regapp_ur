@@ -13,11 +13,12 @@ export default class RegisterChooser extends Component {
             confirmationError: false,
             email: props.value,
             mailConfirmed: false,
+            errorNotification: props.errorNotification
         };
         this.validateInput = this.validateInput.bind(this);
     }
 
-    handleChange = (e, { name, value }) => this.setState({ [name]: value });
+    handleChange = (e, { name, value }) => this.setState({ [name]: value, errorNotification:false });
     
 
     validateInput(e,d) 
@@ -175,6 +176,7 @@ export default class RegisterChooser extends Component {
                             value={email}
                             onChange={this.handleChange}
                             required={true}
+                            className={this.props.errorNotification ? 'redborders': ''}
                         />
                         <Form.Button 
                             color= {(mailConfirmed ? 'green' : 'orange')}

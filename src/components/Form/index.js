@@ -215,7 +215,7 @@ export default class FormLoading extends Component {
     const isPlusMinusVisible = () => plusMinusVisible;
 
     const searchAddressBlock = cardsNum > this.state.cardsList.length 
-        ? (<SearchAddress setSelected={this.setValue.bind(this)} getColor={this.setErrorColor(this.state.step3error.address)} getClassName={this.setErrorClassName(this.state.step3error.address)} />) 
+        ? (<SearchAddress setSelected={this.setValue.bind(this)} getColor={this.setErrorColor(step3error.address)} getClassName={this.setErrorClassName(step3error.address)} />) 
         : '';
 
 
@@ -471,6 +471,7 @@ export default class FormLoading extends Component {
                             disabled = {false}
                             value={contextSate.state.email ? contextSate.state.email : ''}
                             passValue = {this.setValue.bind(this)}
+                            errorNotification = {step3error.mail}
 
                           />
                         </Transition>                        

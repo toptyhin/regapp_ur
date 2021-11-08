@@ -25,6 +25,8 @@ const xhr = new XMLHttpRequest();
         return { ...state, loading: false, results: action.results, error: false }
       case 'UPDATE_SELECTION':
         return { ...state, value: action.selection, selected: action.selected, error: false }
+      // case 'EDIT_INPUT':
+      //   return { ...state, value: action.value, error: false }        
       case 'VERIFY_SEARCH':
         return { ...initialState, error: true }        
   
@@ -44,11 +46,26 @@ const xhr = new XMLHttpRequest();
     const [resultSelected, setResultSelected] = useState(false);
     
     // const [dataPassedError, setDataPassedError] = useState(props.noDataSet)
+
+    const {setSelected} = props;
   
     const timeoutRef = React.useRef()
 
     const handleSearchChange = React.useCallback((e, data) => {
+
       clearTimeout(timeoutRef.current)
+      // if (e.nativeEvent.inputType === 'deleteContentForward' || e.nativeEvent.inputType === 'deleteContentBackward') {
+      //   console.log(data.value);
+      //   dispatch({ type: 'EDIT_INPUT', query: data.value })
+      //   return;
+      // }   
+      
+      setSelected(e,{
+        name:'address',
+        value: data.value
+      });
+
+
       dispatch({ type: 'START_SEARCH', query: data.value })
   
       timeoutRef.current = setTimeout(() => {
@@ -96,7 +113,7 @@ const xhr = new XMLHttpRequest();
             }
           };        
       }, 300)
-    }, [])
+    }, [setSelected])
     
     React.useEffect(() => {
       return () => {
