@@ -18,7 +18,8 @@ import PlusMinusInput from "./plusMinus";
 import Cards from "./cards"
 import {IMaskInput} from 'react-imask';
 import RequiredFields from "./requiredFields"
-import PrivateData from "./privateData";
+// import PrivateData from "./privateData";
+import ThankYou from "./thankyou";
 import Config from "../../config";
 import gasoline from "../../50001.png"
 
@@ -434,7 +435,7 @@ export default class FormLoading extends Component {
                             onChange={(e,{name,value})=>{
                               this.setCompanyDetails('docsystem',value)
                               step3error.docsystem = value === ''
-                              this.setState({step3error:step3error});
+                              // this.setState({step3error:step3error});
                             }}
                             />
                         </Transition>
@@ -490,13 +491,13 @@ export default class FormLoading extends Component {
                         />
                         <ButtonGroup fluid>
 
-                          <ModalContract
+                          {/* <ModalContract
                             active={this.state.address !== ""}
-                          ></ModalContract>
+                          ></ModalContract> */}
                           <Button
                             disabled={confirmBtnDisabled}
                             color={confirmBtnDisabled ? "grey" : "orange"}
-                            onClick={this.confirmContract}
+                            onClick={this.confirmContractDryRun.bind(this)}
                           >
                             Подтвердить
                           </Button>
@@ -511,7 +512,11 @@ export default class FormLoading extends Component {
                     animation="fly left"
                     duration={500}
                   >
-                    <PrivateData
+                    <ThankYou 
+                      contractReady = {this.state.contractReady}
+                      contractError = {this.state.contractError}                    
+                    />
+                    {/* <PrivateData
                       contractReady = {this.state.contractReady}
                       contractError = {this.state.contractError}
                       lkData = {this.state.lkData}
@@ -538,9 +543,10 @@ export default class FormLoading extends Component {
                         cardsList: this.state.cardsList,
                         cardsNum: this.state.cardsNum
                       }}
-                    />
+                    /> */}
                   </Transition>
                 )}
+              
               </Form>
             </AppContext.Provider>
           </Grid.Column>
@@ -735,6 +741,45 @@ export default class FormLoading extends Component {
       a.remove();
       window.URL.revokeObjectURL(url);
     })     
+  }
+
+
+  confirmContractDryRun() {
+    const query = {
+      email: this.state.email ? this.state.email : '',
+      phone: this.state.phone ? this.state.phone : '',
+      delivery_address: this.state.address,
+      cardsNum: this.state.cardsNum,
+      cardsList: this.state.cardsList.map(e=>e.replace(/\s/g,'')),
+      org: this.state.dadata,
+      details: this.state.companyDetails,
+      tarif: Config.tarifid
+    }
+
+    const url = "https://data.inforkom.ru/api/v1/util/contract/confirmDryRun";
+    const options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(query)
+    }    
+    fetch(url, options)
+    .then(response => response.json())
+    .then(obj=>{
+      if (obj.status === 'OK') {
+        this.setState({
+          contractReady: true,
+          contractError: obj.error,
+        })
+        const step3event = new Event('step3');
+        window.dispatchEvent(step3event);        
+        this.setStep(4)
+      }
+    })    
+
   }
 
   confirmContract() {
